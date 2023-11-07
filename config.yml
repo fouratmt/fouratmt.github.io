@@ -96,8 +96,8 @@ params:
     imageHeight: 150
     imageTitle: fourat
     buttons:
-      - name: Posts
-        url: /posts
+      - name: placeholder
+        url: /about
       # - name: Tags
       #   url: /tags
       # - name: TIL

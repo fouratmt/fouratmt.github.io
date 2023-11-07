@@ -20,3 +20,9 @@ summary: "Information about me."
 <!-- I live in [Apex](https://www.apexnc.org), North Carolina. I lived in [Lumberton](https://www.lumbertonnc.gov), North Carolina, for 10 years. -->
 
 <!-- A fun fact about me: I used to [speedcube](/posts/cubing_pb). -->
+
+Here is a list of some useful urls : 
+- [fourat.dev](https://fourat.dev) : My homepage, right now it contains a dumb static site.
+- [beta.fourat.dev](https://beta.fourat.dev) : My website, under development, will be pushed to [fourat.dev](https://fourat.dev) when ready.
+- [cv.fourat.dev](https://cv.fourat.dev) : The latest version of my cv.
+- [pro.fourat.dev](https://pro.fourat.dev) : My Linkedin page.
