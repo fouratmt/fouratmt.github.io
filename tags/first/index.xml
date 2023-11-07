@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>first on Fourat Mastouri</title>
-    <link>https://main--cheerful-mousse-b9d87b.netlify.app/tags/first/</link>
+    <link>https://beta.fourat.dev/tags/first/</link>
     <description>Recent content in first on Fourat Mastouri</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Sep 2020 11:30:03 +0000</lastBuildDate>
-    <atom:link href="https://main--cheerful-mousse-b9d87b.netlify.app/tags/first/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://beta.fourat.dev/tags/first/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My 1st post</title>
-      <link>https://main--cheerful-mousse-b9d87b.netlify.app/posts/page/</link>
+      <link>https://beta.fourat.dev/posts/page/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>https://main--cheerful-mousse-b9d87b.netlify.app/posts/page/</guid>
+      <guid>https://beta.fourat.dev/posts/page/</guid>
       <description>Hello world</description>
     </item>
     <item>
       <title>My 1st TIL</title>
-      <link>https://main--cheerful-mousse-b9d87b.netlify.app/til/til/</link>
+      <link>https://beta.fourat.dev/til/til/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>https://main--cheerful-mousse-b9d87b.netlify.app/til/til/</guid>
+      <guid>https://beta.fourat.dev/til/til/</guid>
       <description>Hello world</description>
     </item>
     <item>
       <title>Test page</title>
-      <link>https://main--cheerful-mousse-b9d87b.netlify.app/posts/test/</link>
+      <link>https://beta.fourat.dev/posts/test/</link>
       <pubDate>Tue, 15 Sep 2020 11:30:03 +0000</pubDate>
-      <guid>https://main--cheerful-mousse-b9d87b.netlify.app/posts/test/</guid>
+      <guid>https://beta.fourat.dev/posts/test/</guid>
       <description>Hello world</description>
     </item>
   </channel>
