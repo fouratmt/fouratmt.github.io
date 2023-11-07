@@ -1,0 +1,35 @@
+name: Build and Deploy Hugo to GitHub Pages
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main  # Set a branch to deploy
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Setup Hugo environment
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+
+    # Build the Hugo site
+    - name: Build
+      run: hugo --minify
+
+    # Deploy to GitHub Pages
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
