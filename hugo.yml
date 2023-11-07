@@ -1,0 +1,216 @@
+baseURL: "https://main--cheerful-mousse-b9d87b.netlify.app"
+languageCode: en-us
+title: Fourat Mastouri
+theme: PaperMod
+paginate: 5
+
+enableRobotsTXT: true
+buildDrafts: true
+buildFuture: false
+buildExpired: false
+pluralizeListTitles: false
+
+googleAnalytics: G-Q603T56FWT
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+# https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-variables/
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Fourat's Website
+  # This is shown when website is posted in Discord and other socials
+  description: "Computer Science MS student at UNC. Welcome to my website!"
+  keywords: [Fourat Mastouri, Portfolio, UNC, Computer Science, Data, CS, data engineering, big data]
+  # author: ["Me", "You"] # multiple authors
+  author: "Fourat"
+  # Image displayed when posting site link on socials
+  # For example, if you post the link to the site in Discord, this image will be displayed
+  images: ["logo.png"]
+  DateFormat: "January 2, 2006"
+  # dark, light
+  defaultTheme: auto
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: false
+  ShowRssButtonInSectionTermList: false
+  # See markup.tableOfContents for configuration
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  # See https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-features/#comments
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+  # New, from PaperModX
+  TocSide: left
+  # Enable KaTeX on every page globally. See blog post about setting up site
+  math: true
+  # Without this, archive doesn't show all pages
+  # See https://github.com/adityatelange/hugo-PaperMod/issues/912
+  # And https://github.com/adityatelange/hugo-PaperMod/commit/fc87fc3a29e8e515dff866159601a734e3ad4a2f
+  # Note from https://github.com/adityatelange/hugo-PaperMod/issues/702 that post must have date to be archived
+  ShowAllPagesInArchive: true
+
+  # Necessary for post nav links to show up on /posts and /projects
+  # https://github.com/adityatelange/hugo-PaperMod/issues/940
+  mainSections:
+    - posts
+    - projects
+    - teaching
+
+  assets:
+    # Disables highlight.js, using Hugo Chroma instead
+    # https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+    # Note: Do not enable this. May not work correctly due to some code theme changes made in or around
+    # https://github.com/jesse-wei/jessewei.dev-PaperMod/commit/bcadfdde8e12a2a9f9ed853f9939695797b31739
+    disableHLJS: true
+    # disableFingerprinting: true
+
+    # https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#adding-custom-favicons
+    # static/ {favicon.ico, favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png, safari-pinned-tab.svg} automatically detected
+
+  # Logo and name shown on top left of site
+  label:
+    text: "Fourat Mastouri"
+    icon: /logo.png
+    iconHeight: 35
+
+  # profile-mode
+  profileMode:
+    # Needs to be explicitly set
+    enabled: true
+    title: Fourat Mastouri
+    # I changed this to use HTML instead of Markdown in index_profile.html
+    # subtitle: "{CS Master's student, Researcher, Serial COMP TA} @ <a href=\"https://unc.edu\">UNC</a>. <a href=\"/about\"><ins>More about me</ins></a>"
+    subtitle: "Senior Data Engineer - Freelance"
+    imageUrl: "https://media.licdn.com/dms/image/C5603AQGwpRl0irk46g/profile-displayphoto-shrink_400_400/0/1516867199135?e=1704931200&v=beta&t=_qig6DccMyJUmSYOsFUAtuySrfX0fO2j-OmybwRxfDc"
+    imageWidth: 150
+    imageHeight: 150
+    imageTitle: fourat
+    buttons:
+      - name: Posts
+        url: /posts
+      # - name: Tags
+      #   url: /tags
+      # - name: TIL
+      #   url: /til
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: |
+      Welcome to my blog
+      Multi-line string with \n separating them
+
+  socialIcons:
+    - name: linkedin
+      url: "https://pro.fourat.dev/"
+    # - name: cv
+    #   url: "https://cv.fourat.dev"
+    - name: email
+      url: "mailto:mastouri.fourat@gmail.com"
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    linkFullImages: true
+    # Hide everywhere but not in structured data
+    hidden: false
+    # Hide in list view
+    hiddenInList: false
+    hiddenInSingle: true
+
+  # editPost:
+  #   URL: "https://github.com/jesse-wei/jessewei.dev-PaperMod/edit/main/content"
+  #   Text: "Suggest edit"
+  #   appendFilePath: true
+
+  # For search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+
+# Source: https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-features/#search-page
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+menu:
+  main:
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 1
+    - identifier: CV
+      name: CV
+      url: "https://cv.fourat.dev"
+      weight: 2
+      params:
+        target: "_blank"
+    # - identifier: TIL
+    #   name: TIL
+    #   url: /til/
+    #   weight: 3
+    # - identifier: teaching
+    #   name: Teaching
+    #   url: /teaching/
+    #   weight: 3
+    # - identifier: search
+    #   name: Search
+    #   url: /search/
+    #   weight: 4
+
+# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
+pygmentsUseClasses: true
+# Source: https://gohugo.io/getting-started/configuration-markup/#highlight
+# Parameter meanings: https://gohugo.io/functions/highlight/
+markup:
+  tableOfContents:
+    # Without this, Hugo ToC doesn't show h4 and higher
+    # https://github.com/alex-shpak/hugo-book/issues/52
+    endLevel: 6
+
+  highlight:
+    anchorLineNos: false
+    codeFences: true
+    guessSyntax: true
+    hl_Lines: ""
+    hl_inline: false
+    lineAnchors: ""
+    lineNoStart: 1
+    # highlight.js also doesn't use line numbers by default.
+    # The rationale is that doing so improves readability
+    # (https://highlightjs.readthedocs.io/en/latest/line-numbers.html).
+    # Therefore, I disable it by default.
+    # Note: It's possible to enable it on a specific code block by specifying
+    # ``` {lineNos=true}
+    # ```
+    lineNos: false
+    lineNumbersInTable: true
+    # false means use external CSS file
+    noClasses: false
+    noHl: false
+    # style: monokai
+    tabWidth: 4
