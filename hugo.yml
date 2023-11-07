@@ -1,4 +1,4 @@
-baseURL: "https://main--cheerful-mousse-b9d87b.netlify.app"
+baseURL: "https://beta.fourat.dev"
 languageCode: en-us
 title: Fourat Mastouri
 theme: PaperMod
@@ -10,7 +10,7 @@ buildFuture: false
 buildExpired: false
 pluralizeListTitles: false
 
-googleAnalytics: G-Q603T56FWT
+googleAnalytics: 
 
 minify:
   disableXML: true
@@ -21,7 +21,7 @@ params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Fourat's Website
   # This is shown when website is posted in Discord and other socials
-  description: "Computer Science MS student at UNC. Welcome to my website!"
+  description: "Senior Data Engineer - Welcome!"
   keywords: [Fourat Mastouri, Portfolio, UNC, Computer Science, Data, CS, data engineering, big data]
   # author: ["Me", "You"] # multiple authors
   author: "Fourat"
@@ -63,9 +63,8 @@ params:
   # Necessary for post nav links to show up on /posts and /projects
   # https://github.com/adityatelange/hugo-PaperMod/issues/940
   mainSections:
-    - posts
-    - projects
-    - teaching
+    - about
+    - cv
 
   assets:
     # Disables highlight.js, using Hugo Chroma instead
