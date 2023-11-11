@@ -1,6 +1,6 @@
-baseURL: "https://beta.fourat.dev"
+baseURL: "https://fourat.dev"
 languageCode: en-us
-title: Fourat Mastouri
+title: Fourat Mastouri | Personal Website
 theme: PaperMod
 paginate: 5
 
@@ -22,7 +22,7 @@ params:
   title: Fourat's Website
   # This is shown when website is posted in Discord and other socials
   description: "Senior Data Engineer - Welcome!"
-  keywords: [Fourat Mastouri, Portfolio, UNC, Computer Science, Data, CS, data engineering, big data]
+  keywords: [Fourat Mastouri, Portfolio, Data, CS, data engineering, big data]
   # author: ["Me", "You"] # multiple authors
   author: "Fourat"
   # Image displayed when posting site link on socials
@@ -76,10 +76,10 @@ params:
 
     # https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-faq/#adding-custom-favicons
     # static/ {favicon.ico, favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png, safari-pinned-tab.svg} automatically detected
-
+        
   # Logo and name shown on top left of site
   label:
-    text: "Fourat Mastouri"
+    text: "Home"
     icon: /logo.png
     iconHeight: 35
 
@@ -89,8 +89,7 @@ params:
     enabled: true
     title: Fourat Mastouri
     # I changed this to use HTML instead of Markdown in index_profile.html
-    # subtitle: "{CS Master's student, Researcher, Serial COMP TA} @ <a href=\"https://unc.edu\">UNC</a>. <a href=\"/about\"><ins>More about me</ins></a>"
-    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and much more..</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a> - Starting from Jan. 2024"
+    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more.</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a> - Starting from Jan. 2024"
     imageUrl: "https://media.licdn.com/dms/image/C5603AQGwpRl0irk46g/profile-displayphoto-shrink_400_400/0/1516867199135?e=1704931200&v=beta&t=_qig6DccMyJUmSYOsFUAtuySrfX0fO2j-OmybwRxfDc"
     imageWidth: 150
     imageHeight: 150
