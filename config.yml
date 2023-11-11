@@ -90,14 +90,16 @@ params:
     title: Fourat Mastouri
     # I changed this to use HTML instead of Markdown in index_profile.html
     # subtitle: "{CS Master's student, Researcher, Serial COMP TA} @ <a href=\"https://unc.edu\">UNC</a>. <a href=\"/about\"><ins>More about me</ins></a>"
-    subtitle: "Senior Data Engineer - Freelance"
+    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and much more..</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a> - Starting from Jan. 2024"
     imageUrl: "https://media.licdn.com/dms/image/C5603AQGwpRl0irk46g/profile-displayphoto-shrink_400_400/0/1516867199135?e=1704931200&v=beta&t=_qig6DccMyJUmSYOsFUAtuySrfX0fO2j-OmybwRxfDc"
     imageWidth: 150
     imageHeight: 150
     imageTitle: fourat
     buttons:
-      - name: placeholder
-        url: /about
+      - name: Let's chat
+        url: "mailto:mastouri.fourat@gmail.com"
+      # - name: Call me ✆
+      #   url: "tel:0033658757028"
       # - name: Tags
       #   url: /tags
       # - name: TIL
@@ -113,10 +115,9 @@ params:
   socialIcons:
     - name: linkedin
       url: "https://pro.fourat.dev/"
-    # - name: cv
-    #   url: "https://cv.fourat.dev"
-    - name: email
-      url: "mailto:mastouri.fourat@gmail.com"
+    - name: cv
+      url: "https://cv.fourat.dev"
+
   analytics:
     google:
       SiteVerificationTag: "XYZabc"

@@ -2,14 +2,14 @@
 draft: false
 layout: "staticpage"
 title: "MY CV"
-date: 2020-09-15T11:30:03+00:00
+date: 2023-11-11
 # tags: ["first"]
 showToc: true
 TocOpen: false
 hidemeta: false
 comments: false
 # description: "Desc Text."
-canonicalURL: "https://canonical.url/to/page"
+# canonicalURL: "https://canonical.url/to/page"
 disableHLJS: false # to disable highlightjs
 disableShare: false
 hideSummary: false
