@@ -1,28 +1,16 @@
 ---
 draft: false
 layout: "staticpage"
-title: "My first post"
+title: "My second post"
 date: 2020-09-15T11:30:03+00:00
 tags: ["tag1","tag2"]
 # author: "Fourat"
-showToc: false
-TocOpen: false
-hidemeta: false
 comments: false
 description: "Description Text."
-summary : "My first post summary"
-canonicalURL: "https://canonical.url/to/page"
-disableHLJS: true # to disable highlightjs
-disableShare: false
-disableHLJS: false
-hideSummary: false
-searchHidden: true
-ShowReadingTime: true
-ShowBreadCrumbs: false
-ShowPostNavLinks: false
+summary : "My second post summary"
 ShowWordCount: true
 ShowRssButtonInSectionTermList: false
-UseHugoToc: false
+robotsNoIndex: true
 # cover:
 #     image: "<image path/url>" # image path/url
 #     alt: "<alt text>" # alt text

@@ -10,6 +10,7 @@ description: "Description Text."
 summary : "My second post summary"
 ShowWordCount: true
 ShowRssButtonInSectionTermList: false
+robotsNoIndex: true
 # cover:
 #     image: "<image path/url>" # image path/url
 #     alt: "<alt text>" # alt text

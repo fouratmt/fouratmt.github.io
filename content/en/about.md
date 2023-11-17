@@ -4,6 +4,9 @@ date: 2023-11-11
 draft: false
 showToc: false
 summary: "Information about me."
+ShowReadingTime: false
+ShowWordCount: false
+robotsNoIndex: true
 ---
 
 {{< rawhtml >}}

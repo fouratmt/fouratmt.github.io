@@ -1,3 +1,12 @@
+---
+draft: true
+showToc: false
+ShowReadingTime: false
+ShowWordCount: false
+robotsNoIndex: true
+---
+WIP
+
 <!-- ---
 draft: false
 layout: "staticpage"
@@ -33,5 +42,3 @@ cover:
 ---
 
 Hello world -->
-
-WIP

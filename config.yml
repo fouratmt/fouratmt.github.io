@@ -1,8 +1,58 @@
 baseURL: "https://fourat.dev"
-languageCode: en-us
 title: Fourat Mastouri | Personal Website
 theme: PaperMod
 paginate: 5
+languages:
+  en:
+    weight: 1
+    contentDir: content/en
+    menu:
+      main:
+        - identifier: about
+          name: About
+          url: /about
+          weight: 1
+        - identifier: CV
+          name: CV
+          url: "https://cv.fourat.dev"
+          weight: 2
+          params:
+            target: "_blank"
+    params:
+      languageAltTitle: "English"
+      languageName: "English"
+
+  fr:
+    weight: 2
+    contentDir: content/fr
+    menu:
+      main:
+        - identifier: about
+          name: À propos
+          url: /fr/about/
+          weight: 1
+        - identifier: CV
+          name: CV
+          url: "https://cv.fourat.dev"
+          weight: 2
+          params:
+            target: "_blank"
+    params:
+      languageName: "French"
+      languageAltTitle: "Français"
+      profileMode:
+        enabled: true
+        title: Fourat Mastouri
+        # I changed this to use HTML instead of Markdown in index_profile.html
+        subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir de Jan. 2024"
+        imageUrl: "https://media.licdn.com/dms/image/C5603AQGwpRl0irk46g/profile-displayphoto-shrink_400_400/0/1516867199135?e=1704931200&v=beta&t=_qig6DccMyJUmSYOsFUAtuySrfX0fO2j-OmybwRxfDc"
+        imageWidth: 150
+        imageHeight: 150
+        imageTitle: fourat
+        buttons:
+          - name: Contactez moi
+            url: "mailto:mastouri.fourat@gmail.com"
+
 
 enableRobotsTXT: true
 buildDrafts: true
@@ -119,11 +169,7 @@ params:
 
   analytics:
     google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
+      SiteVerificationTag: "0XzbqzSTF8KIjFC6jTbcEitJOQbcNVHSo04hg-RDhK0"
 
   cover:
     linkFullImages: true

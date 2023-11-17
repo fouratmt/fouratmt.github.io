@@ -8,6 +8,7 @@ showReadingTime: false
 editPost:
     disabled: true
 summary: "Privacy policy."
+robotsNoIndex: true
 ---
 Welcome to [fourat.dev](https://fourat.dev)!
 
