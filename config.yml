@@ -44,11 +44,7 @@ languages:
         enabled: true
         title: Fourat Mastouri
         # I changed this to use HTML instead of Markdown in index_profile.html
-        subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir de Jan. 2024"
-        imageUrl: "https://media.licdn.com/dms/image/C5603AQGwpRl0irk46g/profile-displayphoto-shrink_400_400/0/1516867199135?e=1704931200&v=beta&t=_qig6DccMyJUmSYOsFUAtuySrfX0fO2j-OmybwRxfDc"
-        imageWidth: 150
-        imageHeight: 150
-        imageTitle: fourat
+        subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir d'Avril 2024"
         buttons:
           - name: Contactez moi
             url: "mailto:mastouri.fourat@gmail.com"
@@ -139,8 +135,8 @@ params:
     enabled: true
     title: Fourat Mastouri
     # I changed this to use HTML instead of Markdown in index_profile.html
-    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more.</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a> - Starting from Jan. 2024"
-    imageUrl: "https://media.licdn.com/dms/image/C5603AQGwpRl0irk46g/profile-displayphoto-shrink_400_400/0/1516867199135?e=1704931200&v=beta&t=_qig6DccMyJUmSYOsFUAtuySrfX0fO2j-OmybwRxfDc"
+    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more.</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a> - Starting from Apr. 2024"
+    imageUrl: "/me.jpg"
     imageWidth: 150
     imageHeight: 150
     imageTitle: fourat

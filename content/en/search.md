@@ -1,9 +1,13 @@
-<!-- ---
-title: "Search" # in any language you want
-layout: "search" # is necessary
-# url: "/archive"
-# description: "Description for Search"
-summary: "search"
-placeholder: "placeholder text in search input box"
---- -->
+---
+title: "Privacy Policy"
+date: 2023-11-11
+draft: false
+showToc: false
+comments: false
+showReadingTime: false
+editPost:
+    disabled: true
+summary: "Privacy policy."
+robotsNoIndex: true
+---
 WIP
