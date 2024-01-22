@@ -16,7 +16,7 @@ robotsNoIndex: true
 
 Actuellement, je travaille chez [Owkin](https://www.owkin.com/) en tant que Senior Data Engineer depuis Août 2023.
 
-Je suis disponible pour des opportunités en tant que data engineer en freelance, à partir de Janvier 2024.
+Je suis disponible pour des opportunités en tant que data engineer en freelance, à partir du 2 Avril 2024.
 
 Vous avez un projet intéressant ou une opportunité à discuter ? [Écrivez-moi](mailto:mastouri.fourat@gmail.com) et voyons comment nous pouvons collaborer ensemble!
 
