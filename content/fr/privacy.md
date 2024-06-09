@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-date: 2023-11-11
+date: 2024-06-09
 draft: false
 showToc: false
 comments: false
@@ -12,7 +12,9 @@ robotsNoIndex: true
 ---
 Bienvenue à [fourat.dev](https://fourat.dev)!
 
-### 1. Introduction :
+Je ne collecte pas de données personnelles comme des emails ou des données personnels via mon site. Toute collecte de données est uniquement effectuée par les services tiers suivants : Cloudflare, Google Analytics et Hugo dans le but d'analyses et de performances du site.
+
+<!-- ### 1. Introduction :
 Je m'engage à respecter la vie privée des visiteurs de mon site personnel de portfolio. Cette politique explique comment vos données sont traitées en lien avec mon site web.
 
 ### 2. Utilisation de Services Tiers :
@@ -41,4 +43,4 @@ Mon site peut inclure des liens vers d'autres sites. Veuillez noter que je n'ai 
 ### 9. Contact :
 Pour toute question concernant cette politique de confidentialité, n'hésitez pas à me contacter par [email](mailto:mastouri.fourat@gmail.com).
 
-Merci de visiter mon site web !
+Merci de visiter mon site web ! -->

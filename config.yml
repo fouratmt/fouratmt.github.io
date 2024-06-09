@@ -67,7 +67,7 @@ params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   title: Fourat's Website
   # This is shown when website is posted in Discord and other socials
-  description: "Senior Data Engineer - Welcome!"
+  description: "Senior Data Engineer Consultant!"
   keywords: [Fourat Mastouri, Portfolio, Data, CS, data engineering, big data]
   # author: ["Me", "You"] # multiple authors
   author: "Fourat"
@@ -135,7 +135,8 @@ params:
     enabled: true
     title: Fourat Mastouri
     # I changed this to use HTML instead of Markdown in index_profile.html
-    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more.</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a> - Starting from Apr. 2024"
+    # subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more.</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a>"
+    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black; text-decoration: none;\"> <span style=\"color: green; text-decoration: underline;\">Open to Work</span> </a>"
     imageUrl: "/me.jpg"
     imageWidth: 150
     imageHeight: 150

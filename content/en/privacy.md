@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-date: 2023-11-11
+date: 2024-06-09
 draft: false
 showToc: false
 comments: false
@@ -12,7 +12,9 @@ robotsNoIndex: true
 ---
 Welcome to [fourat.dev](https://fourat.dev)!
 
-### 1. Introduction :
+I do not collect personal data such as email addresses or personal details through this website. Any data collection is exclusively carried out by the following third-party services: Cloudflare, Google Analytics, and Hugo, for the purpose of site analysis and performance enhancement.
+
+<!-- ### 1. Introduction :
 I am committed to respecting the privacy of visitors to my personal portfolio website. This policy outlines how your data is handled in connection with my website.
 
 ### 2. Use of Third-Party Services :
@@ -41,4 +43,4 @@ My website may include links to other websites. Please note that I have no contr
 ### 9. Contact :
 For any questions about this privacy policy, feel free to reach out to me via [email](mailto:mastouri.fourat@gmail.com).
 
-Thank you for visiting my website!
+Thank you for visiting my website! -->
