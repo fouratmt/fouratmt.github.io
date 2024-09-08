@@ -13,7 +13,7 @@ robotsNoIndex: true
 <p align="center">Salut! Je m'appelle Fourat Mastouri (prononcé [Fou-ratt]).</p>
 {{< /rawhtml >}}
 
-Actuellement, je suis Consultant Senior Data Engineer chez [Owkin](https://www.owkin.com/) depuis Août 2023.
+Actuellement, je suis Senior Data Engineer chez [Owkin](https://www.owkin.com/) depuis Août 2023.
 
 Je suis ouvert à des opportunités en tant que data engineer en freelance pour un démarrage ASAP.
 

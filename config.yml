@@ -44,9 +44,10 @@ languages:
         enabled: true
         title: Fourat Mastouri
         # I changed this to use HTML instead of Markdown in index_profile.html
-        subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir d'Avril 2024"
+        # subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir d'Avril 2024"
+        subtitle: "Senior Data Engineer - Indépendant - <a href=\"/about\"><ins>et bien plus encore</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green; text-decoration: underline\">Disponible</span></a> pour une nouvelle opportunité"
         buttons:
-          - name: Contactez moi
+          - name: Contactez-moi
             url: "mailto:mastouri.fourat@gmail.com"
 
 
