@@ -49,7 +49,7 @@ languages:
         buttons:
           - name: contactez-moi 📧
             url: "mailto:mastouri.fourat@gmail.com"
-          - name: mon cv 📝
+          - name: CV 📝
             url: /fr/cv
 
 enableRobotsTXT: true
