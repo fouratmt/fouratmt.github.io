@@ -5,7 +5,7 @@ ShowReadingTime: false
 ShowWordCount: false
 robotsNoIndex: true
 ---
-English resume
+English resume - Direct link to the [pdf file](https://fourat.dev/resume_en.pdf)!
 
 For French resume, click [here 🇫🇷](/fr/cv)!
 

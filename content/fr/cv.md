@@ -4,7 +4,7 @@ ShowReadingTime: false
 ShowWordCount: false
 robotsNoIndex: true
 ---
-C.V en Francais
+C.V en Francais - Lien direct au [fichier pdf](https://fourat.dev/resume_fr.pdf)!
 
 <!-- Pour voir la version en anglais, appuyer [ici](/cv)! -->
 
