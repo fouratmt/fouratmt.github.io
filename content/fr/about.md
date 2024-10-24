@@ -19,4 +19,4 @@ Je suis ouvert à des opportunités en tant que data engineer en freelance pour 
 
 Vous avez un projet intéressant ou une opportunité à discuter ? [Écrivez-moi](mailto:mastouri.fourat@gmail.com) et voyons comment nous pouvons collaborer ensemble!
 
-Vous pouvez consulter mon profil Linkedin [ici](https://pro.fourat.dev) et mon CV [ici](https://cv.fourat.dev).
+Vous pouvez consulter mon profil Linkedin [ici](https://pro.fourat.dev) et mon CV [ici](/fr/cv).
