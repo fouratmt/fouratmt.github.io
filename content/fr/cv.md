@@ -1,11 +1,16 @@
 ---
-draft: true
 showToc: false
 ShowReadingTime: false
 ShowWordCount: false
 robotsNoIndex: true
 ---
-WIP
+C.V en Francais
+
+<!-- Pour voir la version en anglais, appuyer [ici](/cv)! -->
+
+
+{{< pdfReader "/resume_fr.pdf" >}}
+
 
 <!-- ---
 draft: false

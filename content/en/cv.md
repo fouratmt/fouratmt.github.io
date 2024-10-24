@@ -1,11 +1,16 @@
 ---
-draft: true
+draft: false
 showToc: false
 ShowReadingTime: false
 ShowWordCount: false
 robotsNoIndex: true
 ---
-WIP
+English resume
+
+For French resume, click [here 🇫🇷](/fr/cv)!
+
+{{< pdfReader "/resume_en.pdf" >}}
+
 
 <!-- ---
 draft: false

@@ -14,10 +14,10 @@ languages:
           weight: 1
         - identifier: CV
           name: CV
-          url: "https://cv.fourat.dev"
+          url: /cv
           weight: 2
-          params:
-            target: "_blank"
+          # params:
+          #   target: "_blank"
     params:
       languageAltTitle: "English"
       languageName: "English"
@@ -33,10 +33,10 @@ languages:
           weight: 1
         - identifier: CV
           name: CV
-          url: "https://cv.fourat.dev"
+          url: /fr/cv
           weight: 2
-          params:
-            target: "_blank"
+          # params:
+          #   target: "_blank"
     params:
       languageName: "French"
       languageAltTitle: "Français"
@@ -163,7 +163,7 @@ params:
     - name: linkedin
       url: "https://pro.fourat.dev/"
     - name: cv
-      url: "https://cv.fourat.dev"
+      url: "/fr/cv"
 
   analytics:
     google:
@@ -208,10 +208,8 @@ menu:
       weight: 1
     - identifier: CV
       name: CV
-      url: "https://cv.fourat.dev"
+      url: /cv
       weight: 2
-      params:
-        target: "_blank"
     # - identifier: TIL
     #   name: TIL
     #   url: /til/
