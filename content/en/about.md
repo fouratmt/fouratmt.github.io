@@ -20,5 +20,5 @@ I'm available for freelance opportunities in data engineering, starting ASAP.
 
 Got an interesting project or opportunity to discuss? [Drop me a line](mailto:mastouri.fourat@gmail.com), and let's see how we can collaborate !
 
-You can check my Linkedin [here](https://pro.fourat.dev) and my resume [here](cv).
+You can check my Linkedin [here](https://pro.fourat.dev) and my resume [here](/cv).
 
