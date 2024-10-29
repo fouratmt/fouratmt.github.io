@@ -1,26 +1,16 @@
 baseURL: "https://fourat.dev"
 title: Fourat Mastouri | Personal Website
 theme: PaperMod
-paginate: 5
+pagination: 
+  pagerSize: 5
 languages:
   en:
     weight: 1
     contentDir: content/en
-    menu:
-      main:
-        - identifier: about
-          name: About
-          url: /about
-          weight: 1
-        # - identifier: CV
-        #   name: CV
-        #   url: /cv
-        #   weight: 2
-          # params:
-          #   target: "_blank"
     params:
+      languageName: "🇺🇸"
+      languageCode: en-US
       languageAltTitle: "English"
-      languageName: "English"
 
   fr:
     weight: 2
@@ -38,7 +28,8 @@ languages:
           # params:
           #   target: "_blank"
     params:
-      languageName: "French"
+      languageName: "🇫🇷"
+      languageCode: fr-FR
       languageAltTitle: "Français"
       profileMode:
         enabled: true
@@ -156,11 +147,11 @@ params:
       #   url: /til
 
   # home-info mode
-  homeInfoParams:
-    Title: "Hi there \U0001F44B"
-    Content: |
-      Welcome to my blog
-      Multi-line string with \n separating them
+  # homeInfoParams:
+  #   Title: "Hi there \U0001F44B"
+  #   Content: |
+  #     Welcome to my blog
+  #     Multi-line string with \n separating them
 
   socialIcons:
     - name: linkedin

@@ -1,6 +1,6 @@
 ---
 title: "À propos de moi"
-date: 2024-06-09
+date: 2024-10-24
 showToc: false
 summary: "Information about me."
 ShowReadingTime: false

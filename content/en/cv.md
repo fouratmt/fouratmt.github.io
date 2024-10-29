@@ -1,11 +1,12 @@
 ---
+title: "English Resume"
 draft: false
 showToc: false
 ShowReadingTime: false
 ShowWordCount: false
 robotsNoIndex: true
 ---
-English resume - Direct link to the [pdf file](https://fourat.dev/resume_en.pdf)!
+Direct link to the [pdf file](https://fourat.dev/resume_en.pdf)!
 
 For French resume, click [here 🇫🇷](/fr/cv)!
 
