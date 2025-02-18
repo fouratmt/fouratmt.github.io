@@ -1,5 +1,6 @@
 ---
-title: "C.V en Français"
+title: "Curriculum vitæ - Fr"
+# description: "C.V Fr de Fourat Mastouri"
 draft: false
 showToc: false
 ShowReadingTime: false
@@ -8,10 +9,7 @@ robotsNoIndex: true
 ---
 Lien direct au [fichier pdf](https://fourat.dev/resume_fr.pdf)
 
-Pour voir la version en Anglais, appuyer [ici 🇬🇧]({{< relref path="cv.md" lang="en" >}})!
-
-
-
+Check the english version of the resume [here 🇬🇧]({{< relref path="cv.md" lang="en" >}})!
 
 {{< pdfReader "/resume_fr.pdf" >}}
 

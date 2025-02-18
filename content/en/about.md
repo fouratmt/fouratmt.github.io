@@ -1,6 +1,6 @@
 ---
 title: "About Me"
-date: 2024-06-09
+date: 2025-02-05
 draft: false
 showToc: false
 summary: "Information about me."

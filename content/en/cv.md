@@ -1,5 +1,6 @@
 ---
-title: "English Resume"
+title: "Resume - En"
+# description: "English resume of Fourat Mastouri"
 draft: false
 showToc: false
 ShowReadingTime: false
@@ -8,7 +9,7 @@ robotsNoIndex: true
 ---
 Direct link to the [pdf file](https://fourat.dev/resume_en.pdf)!
 
-For French resume, click [here 🇫🇷](/fr/cv)!
+Pour voir la version en Français, cliquer [ici 🇫🇷](/fr/cv)!
 
 {{< pdfReader "/resume_en.pdf" >}}
 
