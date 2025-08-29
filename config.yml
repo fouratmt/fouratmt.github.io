@@ -11,45 +11,72 @@ languages:
       languageName: "🇺🇸"
       languageCode: en-US
       languageAltTitle: "English"
+      # title: Fourat's Website
+      # This is shown when website is posted in Discord and other socials
+      description: "Senior Data Engineer Consultant!"
+      keywords: [Fourat Mastouri, Portfolio, Data, CS, data engineering, big data]
+        # profile-mode
+      profileMode:
+        # Needs to be explicitly set
+        enabled: true
+        title: Fourat Mastouri
+        # I changed this to use HTML instead of Markdown in index_profile.html
+        subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black; text-decoration: none;\"> <span style=\"color: green; text-decoration: underline;\">Open to Work</span> </a>"
+        imageUrl: "/me.jpg"
+        imageWidth: 150
+        imageHeight: 150
+        imageTitle: fourat
+        buttons:
+          - name: let's chat 📧
+            url: "mailto:mastouri.fourat@gmail.com"
+          - name: resume 📝
+            url: /fr/cv
+    menu:
+      main:
+        - identifier: about
+          name: About
+          url: /about/
+          weight: 1
 
   fr:
     weight: 2
     contentDir: content/fr
-    menu:
-      main:
-        - identifier: about
-          name: À propos
-          url: /fr/about/
-          weight: 1
-        # - identifier: CV
-        #   name: CV
-        #   url: /fr/cv
-        #   weight: 2
-          # params:
-          #   target: "_blank"
     params:
       languageName: "🇫🇷"
       languageCode: fr-FR
       languageAltTitle: "Français"
+      # title: Site web de Fourat
+      # This is shown when website is posted in Discord and other socials
+      description: "Senior Data Engineer - Indépendant!"
+      keywords: [Fourat Mastouri, Portfolio, Data, CS, data engineering, big data]
       profileMode:
         enabled: true
         title: Fourat Mastouri
         # I changed this to use HTML instead of Markdown in index_profile.html
         # subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir d'Avril 2024"
         subtitle: "Senior Data Engineer - Indépendant - <a href=\"/about\"><ins>et bien plus encore</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green; text-decoration: underline\">Disponible</span></a> pour une nouvelle opportunité"
+        imageUrl: "/me.jpg"
+        imageWidth: 150
+        imageHeight: 150
+        imageTitle: fourat
         buttons:
           - name: contactez-moi 📧
             url: "mailto:mastouri.fourat@gmail.com"
           - name: CV 📝
             url: /fr/cv
-
+    menu:
+      main:
+        - identifier: about
+          name: À propos
+          url: /fr/about/
+          weight: 1
+          # params:
+          #   target: "_blank"
 enableRobotsTXT: true
-buildDrafts: true
+buildDrafts: false
 buildFuture: false
 buildExpired: false
 pluralizeListTitles: false
-
-googleAnalytics: 
 
 minify:
   disableXML: true
@@ -58,10 +85,6 @@ minify:
 # https://adityatelange.github.io/hugo-PaperMod/posts/papermod/papermod-variables/
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: Fourat's Website
-  # This is shown when website is posted in Discord and other socials
-  description: "Senior Data Engineer Consultant!"
-  keywords: [Fourat Mastouri, Portfolio, Data, CS, data engineering, big data]
   # author: ["Me", "You"] # multiple authors
   author: "Fourat"
   # Image displayed when posting site link on socials
@@ -90,7 +113,7 @@ params:
   showtoc: true
   tocopen: true
   # New, from PaperModX
-  TocSide: left
+  # TocSide: left
   # Enable KaTeX on every page globally. See blog post about setting up site
   math: true
   # Without this, archive doesn't show all pages
@@ -121,30 +144,6 @@ params:
     text: "Home"
     icon: /logo.png
     iconHeight: 35
-
-  # profile-mode
-  profileMode:
-    # Needs to be explicitly set
-    enabled: true
-    title: Fourat Mastouri
-    # I changed this to use HTML instead of Markdown in index_profile.html
-    # subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more.</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">Open to Work</span></a>"
-    subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black; text-decoration: none;\"> <span style=\"color: green; text-decoration: underline;\">Open to Work</span> </a>"
-    imageUrl: "/me.jpg"
-    imageWidth: 150
-    imageHeight: 150
-    imageTitle: fourat
-    buttons:
-      - name: let's chat 📧
-        url: "mailto:mastouri.fourat@gmail.com"
-      - name: resume 📝
-        url: /fr/cv
-      # - name: Call me ✆
-      #   url: "tel:0033658757028"
-      # - name: Tags
-      #   url: /tags
-      # - name: TIL
-      #   url: /til
 
   # home-info mode
   # homeInfoParams:
@@ -193,29 +192,6 @@ outputs:
     - HTML
     - RSS
     - JSON
-
-menu:
-  main:
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 1
-    # - identifier: CV
-    #   name: CV
-    #   url: /cv
-    #   weight: 2
-    # - identifier: TIL
-    #   name: TIL
-    #   url: /til/
-    #   weight: 3
-    # - identifier: teaching
-    #   name: Teaching
-    #   url: /teaching/
-    #   weight: 3
-    # - identifier: search
-    #   name: Search
-    #   url: /search/
-    #   weight: 4
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
