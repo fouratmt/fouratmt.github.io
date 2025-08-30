@@ -22,7 +22,7 @@ languages:
         title: Fourat Mastouri
         # I changed this to use HTML instead of Markdown in index_profile.html
         subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>and more</ins></a> <br> <a href=\"/about\" style=\"font-weight: bold; color: black; text-decoration: none;\"> <span style=\"color: green; text-decoration: underline;\">Open to Work</span> </a>"
-        imageUrl: "/me.jpg"
+        imageUrl: "me.jpg"
         imageWidth: 150
         imageHeight: 150
         imageTitle: fourat
@@ -30,7 +30,7 @@ languages:
           - name: let's chat 📧
             url: "mailto:mastouri.fourat@gmail.com"
           - name: resume 📝
-            url: /fr/cv
+            url: /cv
     menu:
       main:
         - identifier: about
@@ -55,7 +55,7 @@ languages:
         # I changed this to use HTML instead of Markdown in index_profile.html
         # subtitle: "Senior Data Engineer - Freelance - <a href=\"/about\"><ins>et plus.</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green;\">A l'écoute du marché</span></a> - à partir d'Avril 2024"
         subtitle: "Senior Data Engineer - Indépendant - <a href=\"/about\"><ins>et bien plus encore</ins></a> <br> <a href=\"/fr/about\" style=\"font-weight: bold; color: black;\"><span style=\"color: green; text-decoration: underline\">Disponible</span></a> pour une nouvelle opportunité"
-        imageUrl: "/me.jpg"
+        imageUrl: "me.jpg"
         imageWidth: 150
         imageHeight: 150
         imageTitle: fourat
@@ -142,7 +142,7 @@ params:
   # Logo and name shown on top left of site
   label:
     text: "Home"
-    icon: /logo.png
+    icon: logo.png
     iconHeight: 35
 
   # home-info mode
