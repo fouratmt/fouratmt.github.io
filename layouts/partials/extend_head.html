@@ -1,0 +1,9 @@
+{{- /*
+  Security and privacy headers via meta tags.
+  Prefer setting these as real HTTP headers at the host/CDN when possible.
+  Adjust sources below if you add third‑party scripts (e.g., analytics).
+*/ -}}
+
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'">
+
+<meta name="referrer" content="strict-origin-when-cross-origin">

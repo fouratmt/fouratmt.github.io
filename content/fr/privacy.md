@@ -1,5 +1,5 @@
 ---
-title: "Privacy Policy"
+title: "Politique de confidentialité"
 date: 2024-06-09
 draft: false
 showToc: false
