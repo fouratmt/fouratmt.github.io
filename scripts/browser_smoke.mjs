@@ -182,6 +182,7 @@ try {
         const robotValues = [...document.querySelectorAll('meta[name="robots"]')].map((meta) => meta.content);
         const languageLink = document.querySelector('.lang-switch a');
         const pdf = document.querySelector('.pdf-reader object');
+        const schemas = [...document.querySelectorAll('script[type="application/ld+json"]')];
         return {
           lang: document.documentElement.lang,
           title: document.title,
@@ -190,6 +191,9 @@ try {
           overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
           themeLabel: document.querySelector('#theme-toggle')?.getAttribute('aria-label'),
           pdfHidden: pdf ? getComputedStyle(pdf).display === 'none' : null,
+          schemaCount: schemas.length,
+          schemaValid: schemas.every((schema) => { try { JSON.parse(schema.textContent); return true; } catch { return false; } }),
+          schemaVisible: document.body.innerText.includes('"@context":"https://schema.org"'),
         };
       })()`,
       returnByValue: true,
@@ -203,6 +207,9 @@ try {
     if (result.overflow) failures.push(`${label}: horizontal overflow`);
     if (!result.themeLabel) failures.push(`${label}: theme toggle missing accessible label`);
     if (width < 600 && route.includes("cv") && result.pdfHidden !== true) failures.push(`${label}: PDF embed visible on mobile`);
+    if (!result.schemaCount) failures.push(`${label}: missing JSON-LD structured data`);
+    if (!result.schemaValid) failures.push(`${label}: invalid JSON-LD structured data`);
+    if (result.schemaVisible) failures.push(`${label}: JSON-LD visible in page content`);
     failures.push(...badResponses.map((failure) => `${label}: ${failure}`));
     failures.push(...runtimeErrors.map((failure) => `${label}: runtime error: ${failure}`));
   }

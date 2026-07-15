@@ -21,7 +21,7 @@ The repository-actionable findings in this audit were addressed on 2026-07-15 in
 - makes the public About and CV pages indexable while keeping Privacy and 404 responses `noindex, follow`;
 - preserves the current page when switching languages and localizes shared navigation, footer, and control labels;
 - replaces inaccurate privacy wording, unsafe availability styling, vague alternative text, and inaccessible PDF embeds;
-- moves source images through Hugo's responsive WebP pipeline, adds a 1200 × 630 social card, corrects structured data, and removes unused taxonomy/search output;
+- moves source images through Hugo's responsive WebP pipeline, adds a 1200 × 630 social card, emits valid non-visible JSON-LD structured data, and removes unused taxonomy/search output;
 - expands the bilingual consultant content, improves the PDF embed and download fallback, and leaves the PDF artifacts owned by their external LaTeX build pipeline;
 - adds warning-as-error builds, generated-site/accessibility validation, and headless-browser route and mobile smoke checks for pull requests;
 - adds a multi-stage unprivileged Docker image, Docker Compose development/production services, and HTTP security headers for container deployments.

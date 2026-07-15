@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import json
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -23,6 +24,10 @@ class PageParser(HTMLParser):
         self.h1_count = 0
         self.main_count = 0
         self.skip_links: list[str] = []
+        self.json_ld_blocks: list[str] = []
+        self.raw_schema_text: list[str] = []
+        self._script_type: str | None = None
+        self._script_data: list[str] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = {key: value or "" for key, value in attrs}
@@ -42,6 +47,9 @@ class PageParser(HTMLParser):
             self.buttons.append(values)
         if tag == "object":
             self.objects.append(values)
+        if tag == "script":
+            self._script_type = values.get("type")
+            self._script_data = []
         if tag == "a" and "skip-link" in values.get("class", "").split():
             self.skip_links.append(values.get("href", ""))
         if values.get("id"):
@@ -49,6 +57,19 @@ class PageParser(HTMLParser):
         for attr in ("href", "src", "data"):
             if values.get(attr):
                 self.refs.append((tag, attr, values[attr]))
+
+    def handle_data(self, data: str) -> None:
+        if self._script_type == "application/ld+json":
+            self._script_data.append(data)
+        elif self._script_type is None and "https://schema.org" in data:
+            self.raw_schema_text.append(data.strip())
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "script":
+            if self._script_type == "application/ld+json":
+                self.json_ld_blocks.append("".join(self._script_data).strip())
+            self._script_type = None
+            self._script_data = []
 
 
 def output_target(root: Path, url: str) -> list[Path]:
@@ -134,6 +155,13 @@ def main() -> int:
         viewports = [meta for meta in parser.metas if meta.get("name", "").lower() == "viewport"]
         if relative.as_posix() != "en/index.html" and not viewports:
             errors.append(f"{relative}: missing viewport metadata")
+        if parser.raw_schema_text:
+            errors.append(f"{relative}: schema JSON is visible outside an application/ld+json script")
+        for block in parser.json_ld_blocks:
+            try:
+                json.loads(block)
+            except json.JSONDecodeError as error:
+                errors.append(f"{relative}: invalid JSON-LD: {error.msg}")
         for tag, attr, raw in parser.refs:
             url = urlparse(raw)
             if url.scheme not in ("", "http", "https"):
@@ -161,6 +189,8 @@ def main() -> int:
             errors.append(f"{route}: missing meta description")
         if not any(link.get("hreflang") == "x-default" for link in parser.links):
             errors.append(f"{route}: missing x-default hreflang")
+        if not parser.json_ld_blocks:
+            errors.append(f"{route}: missing JSON-LD structured data")
 
     translation_expectations = {
         "/about/": "/fr/about/",

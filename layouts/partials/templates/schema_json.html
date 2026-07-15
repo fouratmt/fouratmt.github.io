@@ -10,6 +10,7 @@
 -}}
 
 {{- if .IsHome -}}
+<script type="application/ld+json">
 {{- dict
   "@context" "https://schema.org"
   "@type" "ProfilePage"
@@ -20,6 +21,7 @@
   "mainEntity" $person
   | jsonify | safeJS
 -}}
+</script>
 {{- else if .IsPage -}}
 {{- $pageType := .Params.schemaType | default "WebPage" -}}
 {{- $data := dict
@@ -33,5 +35,7 @@
 {{- if eq $pageType "ProfilePage" -}}
   {{- $data = merge $data (dict "mainEntity" $person) -}}
 {{- end -}}
+<script type="application/ld+json">
 {{- $data | jsonify | safeJS -}}
+</script>
 {{- end -}}
