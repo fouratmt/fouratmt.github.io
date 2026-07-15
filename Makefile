@@ -23,10 +23,10 @@ help:
 
 check-hugo:
 	@version="$$($(HUGO) version 2>/dev/null || true)"; \
-	case "$$version" in \
-	  *"v$(HUGO_VERSION)+extended"*) ;; \
-	  *) echo "Hugo Extended $(HUGO_VERSION) is required; found: $${version:-not installed}" >&2; exit 1 ;; \
-	esac
+	case "$$version" in *"v$(HUGO_VERSION)"*) ;; \
+	  *) echo "Hugo $(HUGO_VERSION) is required; found: $${version:-not installed}" >&2; exit 1 ;; esac; \
+	case "$$version" in *"+extended"*) ;; \
+	  *) echo "Hugo Extended is required; found: $${version:-not installed}" >&2; exit 1 ;; esac
 
 init:
 	git submodule update --init --recursive
