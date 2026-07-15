@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
 import { createReadStream, existsSync } from "node:fs";
-import { mkdtemp, readFile } from "node:fs/promises";
+import { mkdtemp } from "node:fs/promises";
 import { createServer } from "node:http";
+import { createServer as createNetServer } from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
 const siteRoot = path.resolve(process.argv[2] ?? "/tmp/fourat-browser-site");
 const host = "127.0.0.1";
 const sitePort = Number(process.env.SITE_PORT ?? 4173);
-const requestedDebugPort = Number(process.env.CHROME_DEBUG_PORT ?? 0);
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -34,6 +34,25 @@ function findChrome() {
   const chrome = candidates.find((candidate) => existsSync(candidate));
   if (!chrome) throw new Error("Chrome or Chromium was not found; set CHROME_BIN");
   return chrome;
+}
+
+async function findAvailablePort() {
+  if (process.env.CHROME_DEBUG_PORT) {
+    const port = Number(process.env.CHROME_DEBUG_PORT);
+    if (Number.isInteger(port) && port > 0 && port <= 65535) return port;
+    throw new Error("CHROME_DEBUG_PORT must be an integer between 1 and 65535");
+  }
+
+  const portServer = createNetServer();
+  await new Promise((resolve, reject) => {
+    portServer.once("error", reject);
+    portServer.listen(0, host, resolve);
+  });
+  const address = portServer.address();
+  const port = typeof address === "object" && address ? address.port : null;
+  await new Promise((resolve, reject) => portServer.close((error) => error ? reject(error) : resolve()));
+  if (!port) throw new Error("Could not allocate a Chrome debugging port");
+  return port;
 }
 
 function staticTarget(requestUrl) {
@@ -62,6 +81,7 @@ await new Promise((resolve, reject) => {
 });
 
 const profile = await mkdtemp(path.join(tmpdir(), "fourat-chrome-"));
+const debugPort = await findAvailablePort();
 let chromeDiagnostics = "";
 const chrome = spawn(findChrome(), [
   "--headless=new",
@@ -70,7 +90,7 @@ const chrome = spawn(findChrome(), [
   "--disable-gpu",
   "--no-sandbox",
   "--remote-allow-origins=*",
-  `--remote-debugging-port=${requestedDebugPort}`,
+  `--remote-debugging-port=${debugPort}`,
   `--user-data-dir=${profile}`,
   "about:blank",
 ], { stdio: ["ignore", "ignore", "pipe"] });
@@ -92,25 +112,8 @@ async function waitForJson(url, attempts = 80) {
   throw new Error(`Timed out waiting for ${url}${chromeDiagnostics ? `:\n${chromeDiagnostics.trim()}` : ""}`);
 }
 
-async function discoverDebugPort() {
-  if (requestedDebugPort) return requestedDebugPort;
-  const portFile = path.join(profile, "DevToolsActivePort");
-  for (let attempt = 0; attempt < 80; attempt += 1) {
-    try {
-      const [port] = (await readFile(portFile, "utf8")).trim().split("\n");
-      if (port) return Number(port);
-    } catch {}
-    if (chrome.exitCode !== null) {
-      throw new Error(`Chrome exited with code ${chrome.exitCode}:\n${chromeDiagnostics.trim()}`);
-    }
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-  throw new Error(`Chrome did not publish its debugging port${chromeDiagnostics ? `:\n${chromeDiagnostics.trim()}` : ""}`);
-}
-
 let socket;
 try {
-  const debugPort = await discoverDebugPort();
   const targets = await waitForJson(`http://${host}:${debugPort}/json/list`);
   const target = targets.find((candidate) => candidate.type === "page");
   if (!target) throw new Error("Chrome did not expose a page target");
