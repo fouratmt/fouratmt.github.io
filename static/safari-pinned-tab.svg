@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <title>Fourat Mastouri</title>
+  <circle cx="50" cy="50" r="46" fill="#000"/>
+  <path d="M30 24h42v12H44v13h24v12H44v25H30z" fill="#fff"/>
+  <path d="M14 70c13-8 23-8 36 0s23 8 36 0v11c-13 8-23 8-36 0s-23-8-36 0z" fill="#fff"/>
+</svg>

@@ -1,46 +1,43 @@
 ---
-title: "Politique de confidentialité"
-date: 2024-06-09
+title: Politique de confidentialité
+description: Comment fourat.dev traite les données techniques, la préférence de thème, les liens externes et les contacts par email.
+summary: Informations relatives à la confidentialité pour les visiteurs de fourat.dev.
+lastmod: 2026-07-15
 draft: false
-showToc: false
-comments: false
-showReadingTime: false
-editPost:
-    disabled: true
-summary: "Privacy policy."
-robotsNoIndex: true
+hideMeta: true
+showToc: true
+TocOpen: true
+robots: "noindex, follow"
+schemaType: WebPage
 ---
-Bienvenue à [fourat.dev](https://fourat.dev)!
 
-Je ne collecte pas de données personnelles comme des emails ou des données personnels via mon site. Toute collecte de données est uniquement effectuée par les services tiers suivants : Cloudflare, Google Analytics et Hugo dans le but d'analyses et de performances du site.
+Cette politique explique comment [fourat.dev](https://fourat.dev/) traite les informations lorsque vous consultez le site ou me contactez.
 
-<!-- ### 1. Introduction :
-Je m'engage à respecter la vie privée des visiteurs de mon site personnel de portfolio. Cette politique explique comment vos données sont traitées en lien avec mon site web.
+## Hébergement et diffusion du site
 
-### 2. Utilisation de Services Tiers :
-Bien que je ne collecte pas directement des données personnelles via mon site, des services tiers tels que Cloudflare, Google Analytics et Hugo peuvent recueillir des données pour améliorer l'expérience utilisateur et analyser l'utilisation du site. Ces services peuvent recueillir des informations telles que les adresses IP, les localisations géographiques, les types de navigateurs et les pages consultées.
+Le site est hébergé par GitHub Pages et diffusé par Cloudflare. Ces fournisseurs d'infrastructure traitent les données techniques nécessaires au fonctionnement, à la sécurité et au diagnostic de leurs services. Il peut s'agir de votre adresse IP, des informations relatives au navigateur et à l'appareil, de l'URL demandée, de l'heure de la requête et d'informations de sécurité ou d'erreur réseau.
 
-### 3. Cookies :
-Mon site utilise des cookies, qui sont de petits fichiers placés sur votre appareil par des serveurs web lorsque vous visitez certaines pages. Ces cookies sont utilisés par des services tiers pour améliorer les fonctionnalités du site et recueillir des données analytiques. En utilisant mon site, vous consentez à l'utilisation de ces cookies.
+Le traitement de ces données est régi par leurs politiques respectives :
 
-Ce site mémorise également votre préférence de thème (clair ou sombre) dans un cookie.
+- [Déclaration de confidentialité de GitHub](https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement)
+- [Politique de confidentialité de Cloudflare](https://www.cloudflare.com/fr-fr/privacypolicy/)
 
-### 4. Pas de Collecte de Données Personnelles :
-Je ne collecte pas de données personnelles comme des emails ou des détails personnels via mon site. Toute collecte de données est uniquement effectuée par les services tiers mentionnés dans le but d'analyses et de performances du site.
+## Mesure d'audience et cookies
 
-### 5. Sécurité :
-Bien que je prenne des mesures raisonnables pour assurer la sécurité de mon site, veuillez noter qu'aucune transmission sur Internet n'est entièrement sécurisée. Je ne peux pas garantir la sécurité des données transmises à ou par mon site.
+Ce site ne charge actuellement ni Google Analytics, ni pixel publicitaire, ni autre outil de suivi côté navigateur. Il ne dépose aucun cookie publicitaire ou de mesure d'audience.
 
-### 6. Vos Droits en Matière de Vie Privée :
-Puisque je ne collecte pas de données personnelles, les actions que je peux entreprendre concernant vos données sont limitées. Cependant, vous pouvez avoir des droits concernant vos données selon les politiques des services tiers utilisés par mon site.
+La préférence de thème clair ou sombre est enregistrée dans le `localStorage` de votre navigateur. Elle reste sur votre appareil et sert uniquement à restaurer l'apparence choisie lors de vos prochaines visites. Vous pouvez la supprimer en effaçant les données de ce site dans votre navigateur.
 
-### 7. Modifications :
-Je peux occasionnellement mettre à jour cette politique en publiant une nouvelle version sur mon site. Il est conseillé de consulter régulièrement cette page pour toute modification.
+## Contact par email
 
-### 8. Sites Tiers :
-Mon site peut inclure des liens vers d'autres sites. Veuillez noter que je n'ai aucun contrôle sur les pratiques de confidentialité de ces sites externes.
+Lorsque vous utilisez un lien email, votre application de messagerie envoie les informations que vous choisissez de fournir. Je les utilise uniquement pour répondre à votre message et gérer l'éventuel échange professionnel qui en découle. Merci de ne pas transmettre de données personnelles sensibles qui ne seraient pas nécessaires à votre demande.
 
-### 9. Contact :
-Pour toute question concernant cette politique de confidentialité, n'hésitez pas à me contacter par [email](mailto:mastouri.fourat@gmail.com).
+## Liens externes
 
-Merci de visiter mon site web ! -->
+Le site contient des liens vers des services tiers, notamment LinkedIn et des sites de clients ou d'employeurs. Leurs propres politiques de confidentialité s'appliquent lorsque vous les consultez.
+
+## Vos questions et vos droits
+
+Pour toute question relative à la confidentialité ou toute demande concernant des informations que vous m'avez directement envoyées, écrivez à [mastouri.fourat@gmail.com](mailto:mastouri.fourat@gmail.com). Les droits applicables et les durées de conservation peuvent dépendre de la loi et du contexte de notre échange.
+
+Cette politique a été mise à jour le 15 juillet 2026.

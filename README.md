@@ -1,58 +1,88 @@
-# fourat.dev — Personal Website (Hugo + PaperMod)
+# fourat.dev
 
-This is the source for my personal website, built with [Hugo](https://gohugo.io/) and the [PaperMod](https://github.com/adityatelange/hugo-PaperMod) theme (as a Git submodule). The site is bilingual (English/French).
+Bilingual English/French portfolio for Fourat Mastouri, built with Hugo Extended and PaperMod. GitHub Actions validates and deploys the site to GitHub Pages; Cloudflare serves the custom domain.
 
 ## Requirements
-- Hugo Extended ≥ 0.114.0
-- Git (for submodules)
 
-Verify your Hugo version:
+- Git, including submodule support
+- Hugo Extended 0.164.0 for native development
+- Python 3 for generated-site validation
+- Docker and Docker Compose when using the container workflow
 
-```
-hugo version
-```
+## Initialize
 
-## Getting Started
-
-1) Clone and initialize submodules
-```
-git clone <this-repo>
-cd my-website
+```bash
 git submodule update --init --recursive
 ```
 
-2) Run the dev server
-```
-# Includes drafts (-D) if you want to preview them locally
-hugo server -D
-```
-The site will be available at http://localhost:1313.
+## Native development
 
-3) Build production output
-```
-hugo --gc --minify
-```
-Static files will be generated into `public/`.
-
-## Theme Updates (PaperMod)
-Update the theme submodule to the latest upstream:
-```
-git submodule update --remote --merge themes/PaperMod
-# review changes, then
-git add themes/PaperMod
-git commit -m "chore(theme): update PaperMod"
+```bash
+make serve
 ```
 
-## Structure
-- `content/en|fr/`: Pages and posts per language
-- `layouts/`: Template overrides and custom partials/shortcodes
-- `static/`: Static files served as-is (images, PDFs, icons)
-- `themes/PaperMod/`: Theme submodule
-- `config.yml`: Site configuration
+The development server is available at <http://localhost:1313/> and includes drafts.
+
+Build and validate without writing to the committed source tree:
+
+```bash
+make check
+make quality
+```
+
+`make quality` performs a warning-as-error Hugo build and validates generated routes, local assets, language links, metadata, and core accessibility semantics. CI also runs `make browser-smoke` in headless Chrome to catch runtime errors, failed assets, mobile overflow, and incorrect translated routes.
+
+## Docker
+
+Build and run the production image:
+
+```bash
+make docker-up
+```
+
+Open <http://localhost:8080/>. The multi-stage image uses the official Hugo container to build the site and an unprivileged NGINX runtime to serve it with security headers. The runtime filesystem is read-only under Docker Compose.
+
+Stop it with:
+
+```bash
+make docker-down
+```
+
+For live-reload development entirely inside Docker:
+
+```bash
+make docker-dev
+```
+
+Open <http://localhost:1313/>. The repository is mounted into the Hugo container, so the PaperMod submodule must already be initialized.
+
+Equivalent direct commands are:
+
+```bash
+docker build -t fourat-dev:local .
+docker run --rm -p 8080:8080 --read-only --tmpfs /tmp --tmpfs /var/cache/nginx fourat-dev:local
+```
+
+## Résumé source and PDFs
+
+The accessible HTML pages in `content/en/cv.md` and `content/fr/cv.md` are the source of truth. Regenerate the tagged downloadable PDFs after editing them:
+
+```bash
+python3 -m pip install -r requirements-pdf.txt
+make resume-pdfs
+```
+
+The command writes review copies to `output/pdf/` and updates the website copies in `static/`. Render and visually review both PDFs before committing changes.
+
+## Content conventions
+
+- Add or change public content in both `content/en/` and `content/fr/`.
+- Put processable source images in `assets/`; keep passthrough files such as favicons and PDFs in `static/`.
+- Customize PaperMod through `layouts/` and `assets/css/extended/`; never edit the theme submodule directly.
+- Do not commit `public/` or generated Hugo resources.
 
 ## Deployment
-Deployed via GitHub Actions to GitHub Pages on pushes to `main`.
-The workflow builds with Hugo Extended and uploads the `public/` artifact.
 
-## Common Tasks (Makefile)
-A `Makefile` is included for convenience. See `make help` for targets.
+Pull requests run the quality workflow. Pushes to `main` run the same checks before the GitHub Pages artifact is uploaded and deployed. The workflow pins Hugo 0.164.0, matching `.hugo-version` and the Docker builder.
+
+Production response-header configuration for the Cloudflare/GitHub Pages deployment is documented in [`docs/security-headers.md`](docs/security-headers.md).

@@ -1,0 +1,37 @@
+{{- $portrait := resources.Get "images/me.jpg" -}}
+{{- if $portrait }}{{ $portrait = $portrait.Fill "600x600 Center webp q88" }}{{ end -}}
+{{- $person := dict
+  "@type" "Person"
+  "name" "Fourat Mastouri"
+  "url" site.Home.Permalink
+  "jobTitle" (cond (eq .Lang "fr") "Consultant Senior Data Engineer" "Senior Data Engineer Consultant")
+  "image" (cond $portrait $portrait.Permalink ("apple-touch-icon.png" | absURL))
+  "sameAs" site.Params.schema.sameAs
+-}}
+
+{{- if .IsHome -}}
+{{- dict
+  "@context" "https://schema.org"
+  "@type" "ProfilePage"
+  "name" site.Title
+  "description" site.Params.description
+  "url" .Permalink
+  "inLanguage" .Language.Locale
+  "mainEntity" $person
+  | jsonify | safeJS
+-}}
+{{- else if .IsPage -}}
+{{- $pageType := .Params.schemaType | default "WebPage" -}}
+{{- $data := dict
+  "@context" "https://schema.org"
+  "@type" $pageType
+  "name" .Title
+  "description" (.Description | default .Summary | plainify)
+  "url" .Permalink
+  "inLanguage" .Language.Locale
+-}}
+{{- if eq $pageType "ProfilePage" -}}
+  {{- $data = merge $data (dict "mainEntity" $person) -}}
+{{- end -}}
+{{- $data | jsonify | safeJS -}}
+{{- end -}}

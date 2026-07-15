@@ -1,0 +1,17 @@
+{{- if lt hugo.Version "0.146.0" }}
+{{- errorf "Hugo v0.146.0 or greater is required" }}
+{{- end -}}
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale | default site.Language.Name }}" dir="{{ .Language.Direction | default "auto" }}">
+<head>
+    {{- partial "head.html" . }}
+</head>
+<body class="{{ if or (ne .Kind `page`) (eq .Layout `archives`) (eq .Layout `search`) }}list{{ end }}{{ if eq site.Params.defaultTheme `dark` }} dark{{ end }}" id="top">
+    <a class="skip-link" href="#main-content">{{ i18n "skip_to_content" | default "Skip to content" }}</a>
+    {{- partialCached "header.html" . .Page -}}
+    <main class="main" id="main-content">
+        {{- block "main" . }}{{ end }}
+    </main>
+    {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
+</body>
+</html>
