@@ -14,12 +14,12 @@ Consultant Senior Data Engineer spécialisé dans les plateformes data, le trait
 {{< rawhtml >}}
 <p class="resume-actions">
   <a class="button" href="mailto:mastouri.fourat@gmail.com">Contacter Fourat</a>
-  <a class="button" href="/resume_fr.pdf">Télécharger le PDF balisé</a>
+  <a class="button" href="/resume_fr.pdf">Télécharger le CV PDF</a>
   <a class="button" href="/cv/" hreflang="en">Read the English résumé</a>
 </p>
 {{< /rawhtml >}}
 
-_Le CV téléchargeable est généré à partir de cette page accessible. Le statut des expériences correspond à la version de février 2025 ; contactez-moi pour connaître ma situation la plus récente._
+_Le PDF téléchargeable est le CV de référence. Les expériences présentées sur cette page correspondent à la version de février 2025 ; contactez-moi pour connaître ma situation la plus récente._
 
 ## Compétences clés
 
@@ -124,4 +124,4 @@ Systèmes d'information, développement orienté objet et architecture logiciell
 
 Missions freelance, avec un rythme de télétravail ou hybride défini selon le projet, sa localisation et les besoins de collaboration.
 
-{{< pdfReader src="/resume_fr.pdf" title="CV français téléchargeable" linkText="Ouvrir ou télécharger le CV français balisé" >}}
+{{< pdfReader src="/resume_fr.pdf" title="CV français téléchargeable" linkText="Ouvrir ou télécharger le CV français PDF" >}}

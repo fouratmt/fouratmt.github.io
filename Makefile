@@ -1,6 +1,7 @@
-.PHONY: help init serve build check quality browser-smoke resume-pdfs clean theme-update docker-build docker-up docker-dev docker-down
+.PHONY: help check-hugo init serve build check quality browser-smoke clean theme-update docker-check docker-build docker-up docker-dev docker-down
 
 HUGO ?= hugo
+HUGO_VERSION := $(shell tr -d '[:space:]' < .hugo-version)
 HUGO_CACHEDIR ?= /tmp/fourat-hugo-cache
 CHECK_DESTINATION ?= /tmp/fourat-site-check
 
@@ -12,7 +13,7 @@ help:
 	@echo "  check          - build to /tmp and validate generated routes/assets"
 	@echo "  quality        - run build, link/metadata, and accessibility checks"
 	@echo "  browser-smoke  - run responsive route checks in headless Chrome"
-	@echo "  resume-pdfs    - regenerate tagged English and French résumé PDFs"
+	@echo "  docker-check   - validate the Docker Compose configuration"
 	@echo "  docker-build   - build the production container image"
 	@echo "  docker-up      - run the production container at localhost:8080"
 	@echo "  docker-dev     - run Hugo with live reload at localhost:1313"
@@ -20,38 +21,45 @@ help:
 	@echo "  theme-update   - update the PaperMod submodule for manual review"
 	@echo "  clean          - remove generated site and Hugo resources"
 
+check-hugo:
+	@version="$$($(HUGO) version 2>/dev/null || true)"; \
+	case "$$version" in \
+	  *"v$(HUGO_VERSION)+extended"*) ;; \
+	  *) echo "Hugo Extended $(HUGO_VERSION) is required; found: $${version:-not installed}" >&2; exit 1 ;; \
+	esac
+
 init:
 	git submodule update --init --recursive
 
-serve:
+serve: check-hugo
 	HUGO_CACHEDIR=$(HUGO_CACHEDIR) $(HUGO) server -D --disableFastRender
 
-build:
+build: check-hugo
 	HUGO_CACHEDIR=$(HUGO_CACHEDIR) $(HUGO) --gc --minify --panicOnWarning
 
-check:
+check: check-hugo
 	rm -rf $(CHECK_DESTINATION)
 	HUGO_CACHEDIR=$(HUGO_CACHEDIR) $(HUGO) --gc --minify --panicOnWarning --printI18nWarnings --printPathWarnings --destination $(CHECK_DESTINATION)
 	python3 scripts/check_site.py $(CHECK_DESTINATION)
 
-quality:
+quality: check-hugo
 	./scripts/run_quality_checks.sh
 
-browser-smoke:
+browser-smoke: check-hugo
 	rm -rf /tmp/fourat-browser-site
 	HUGO_CACHEDIR=$(HUGO_CACHEDIR) $(HUGO) --gc --minify --panicOnWarning --destination /tmp/fourat-browser-site
 	node scripts/browser_smoke.mjs /tmp/fourat-browser-site
 
-resume-pdfs:
-	python3 scripts/generate_resume_pdfs.py
+docker-check:
+	docker compose config --quiet
 
-docker-build:
+docker-build: docker-check
 	docker build --tag fourat-dev:local .
 
-docker-up:
+docker-up: docker-check
 	docker compose up --build --detach website
 
-docker-dev:
+docker-dev: docker-check
 	docker compose --profile dev up hugo-dev
 
 docker-down:

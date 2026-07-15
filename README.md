@@ -30,7 +30,7 @@ make check
 make quality
 ```
 
-`make quality` performs a warning-as-error Hugo build and validates generated routes, local assets, language links, metadata, and core accessibility semantics. CI also runs `make browser-smoke` in headless Chrome to catch runtime errors, failed assets, mobile overflow, and incorrect translated routes.
+The native targets verify that the installed Hugo version matches `.hugo-version` before building. `make quality` performs a warning-as-error Hugo build and validates generated routes, local assets, language links, metadata, and core accessibility semantics. CI also runs `make browser-smoke` in headless Chrome to catch runtime errors, failed assets, mobile overflow, and incorrect translated routes.
 
 ## Docker
 
@@ -63,16 +63,11 @@ docker build -t fourat-dev:local .
 docker run --rm -p 8080:8080 --read-only --tmpfs /tmp --tmpfs /var/cache/nginx fourat-dev:local
 ```
 
-## Résumé source and PDFs
+## Résumé PDFs
 
-The accessible HTML pages in `content/en/cv.md` and `content/fr/cv.md` are the source of truth. Regenerate the tagged downloadable PDFs after editing them:
+The downloadable files in `static/resume_en.pdf` and `static/resume_fr.pdf` are build artifacts from a separate LaTeX repository. That repository's GitHub Actions workflow builds and commits updated PDFs here.
 
-```bash
-python3 -m pip install -r requirements-pdf.txt
-make resume-pdfs
-```
-
-The command writes review copies to `output/pdf/` and updates the website copies in `static/`. Render and visually review both PDFs before committing changes.
+Do not edit or regenerate the PDF files in this project. The bilingual HTML CV pages are maintained separately as accessible web content.
 
 ## Content conventions
 

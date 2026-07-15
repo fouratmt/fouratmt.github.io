@@ -14,12 +14,12 @@ Senior Data Engineer consultant focused on data platforms, distributed processin
 {{< rawhtml >}}
 <p class="resume-actions">
   <a class="button" href="mailto:mastouri.fourat@gmail.com">Contact Fourat</a>
-  <a class="button" href="/resume_en.pdf">Download the tagged PDF</a>
+  <a class="button" href="/resume_en.pdf">Download the PDF résumé</a>
   <a class="button" href="/fr/cv/" hreflang="fr">Lire le CV en français</a>
 </p>
 {{< /rawhtml >}}
 
-_The downloadable résumé is generated from this accessible page. Experience status is stated as of the February 2025 résumé snapshot; please contact me for the latest engagement details._
+_The downloadable PDF is the authoritative résumé. The experience details on this page reflect the February 2025 snapshot; please contact me for the latest engagement details._
 
 ## Core expertise
 
@@ -124,4 +124,4 @@ Information systems, object-oriented development, and software architecture.
 
 Freelance assignments, with remote or hybrid arrangements agreed according to the project, location, and collaboration needs.
 
-{{< pdfReader src="/resume_en.pdf" title="Downloadable English résumé" linkText="Open or download the tagged English résumé PDF" >}}
+{{< pdfReader src="/resume_en.pdf" title="Downloadable English résumé" linkText="Open or download the English résumé PDF" >}}

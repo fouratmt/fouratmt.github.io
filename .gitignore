@@ -22,8 +22,7 @@ hugo.linux
 __pycache__/
 *.py[cod]
 
-# PDF generation review copies and intermediates
-/output/
+# Local temporary files
 /tmp/
 
 # End of https://www.toptal.com/developers/gitignore/api/hugo
