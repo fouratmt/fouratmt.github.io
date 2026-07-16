@@ -47,10 +47,10 @@ languages:
         imageHeight: 150
         imageTitle: Portrait of Fourat Mastouri
         buttons:
-          - name: let's chat 📧
+          - name: Contact me 📧
             ariaLabel: Email Fourat Mastouri
             url: "mailto:mastouri.fourat@gmail.com"
-          - name: resume 📝
+          - name: View résumé 📝
             ariaLabel: View Fourat Mastouri's résumé
             url: /cv/
     menu:
@@ -95,10 +95,10 @@ languages:
         imageHeight: 150
         imageTitle: Portrait de Fourat Mastouri
         buttons:
-          - name: contactez-moi 📧
+          - name: Me contacter 📧
             ariaLabel: Envoyer un email à Fourat Mastouri
             url: "mailto:mastouri.fourat@gmail.com"
-          - name: CV 📝
+          - name: Consulter mon CV 📝
             ariaLabel: Consulter le CV de Fourat Mastouri
             url: /fr/cv/
     menu:
