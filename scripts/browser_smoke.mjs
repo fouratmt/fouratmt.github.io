@@ -181,6 +181,7 @@ try {
       expression: `(() => {
         const robotValues = [...document.querySelectorAll('meta[name="robots"]')].map((meta) => meta.content);
         const languageLink = document.querySelector('.lang-switch a');
+        const languageSeparator = document.querySelector('.lang-switch-separator');
         const pdf = document.querySelector('.pdf-reader object');
         const schemas = [...document.querySelectorAll('script[type="application/ld+json"]')];
         return {
@@ -188,12 +189,15 @@ try {
           title: document.title,
           robots: robotValues.at(-1),
           translation: languageLink ? new URL(languageLink.href).pathname : null,
+          languageSeparator: languageSeparator?.textContent.trim(),
+          languageSeparatorHidden: languageSeparator?.getAttribute('aria-hidden'),
           overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
           themeLabel: document.querySelector('#theme-toggle')?.getAttribute('aria-label'),
           pdfHidden: pdf ? getComputedStyle(pdf).display === 'none' : null,
           schemaCount: schemas.length,
           schemaValid: schemas.every((schema) => { try { JSON.parse(schema.textContent); return true; } catch { return false; } }),
           schemaVisible: document.body.innerText.includes('"@context":"https://schema.org"'),
+          profileButtons: [...document.querySelectorAll('.profile .buttons .button')].map((button) => button.textContent.trim()),
         };
       })()`,
       returnByValue: true,
@@ -204,12 +208,14 @@ try {
     if (!result.title) failures.push(`${label}: missing title`);
     if (result.robots !== robots) failures.push(`${label}: robots=${result.robots}`);
     if (result.translation !== translation) failures.push(`${label}: translation=${result.translation}`);
+    if (result.languageSeparator !== "|" || result.languageSeparatorHidden !== "true") failures.push(`${label}: language separator missing or exposed to assistive technology`);
     if (result.overflow) failures.push(`${label}: horizontal overflow`);
     if (!result.themeLabel) failures.push(`${label}: theme toggle missing accessible label`);
     if (width < 600 && route.includes("cv") && result.pdfHidden !== true) failures.push(`${label}: PDF embed visible on mobile`);
     if (!result.schemaCount) failures.push(`${label}: missing JSON-LD structured data`);
     if (!result.schemaValid) failures.push(`${label}: invalid JSON-LD structured data`);
     if (result.schemaVisible) failures.push(`${label}: JSON-LD visible in page content`);
+    if ((route === "/" || route === "/fr/") && (!result.profileButtons.some((label) => label.includes("📧")) || !result.profileButtons.some((label) => label.includes("📝")))) failures.push(`${label}: profile button icons missing`);
     failures.push(...badResponses.map((failure) => `${label}: ${failure}`));
     failures.push(...runtimeErrors.map((failure) => `${label}: runtime error: ${failure}`));
   }

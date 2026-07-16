@@ -53,6 +53,7 @@ else if(window.matchMedia("(prefers-color-scheme: dark)").matches){document.body
                 {{- if le (len $translations) 1 }}{{ $translations = site.Home.AllTranslations }}{{ end }}
                 {{- if gt (len $translations) 1 }}
                 <ul class="lang-switch" aria-label="{{ i18n "language_navigation" | default "Language selection" }}">
+                    <li class="lang-switch-separator" aria-hidden="true">|</li>
                     {{- range $translations }}
                     {{- if ne $currentLang .Lang }}
                     <li>

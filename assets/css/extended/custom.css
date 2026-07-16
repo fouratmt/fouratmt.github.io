@@ -61,26 +61,11 @@ button:focus-visible {
 .service-list li,
 .experience-list li { margin-bottom: 0.4rem; }
 
-.resume-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    margin: 1.25rem 0 2rem;
-}
-
-.resume-actions .button,
 .pdf-reader-actions .button {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     padding: 0.65rem 1rem;
-}
-
-.cv-entry { margin-bottom: 1.4rem; }
-.cv-entry h3 { margin-bottom: 0.1rem; }
-.cv-entry-meta {
-    margin: 0 0 0.5rem;
-    color: var(--secondary);
 }
 
 .pdf-reader {
@@ -106,41 +91,4 @@ button:focus-visible {
 @media (max-width: 600px) {
     .about-portrait img { width: 160px; height: 160px; }
     .pdf-reader object { display: none; }
-}
-
-@media print {
-    @page { size: A4; margin: 12mm 13mm; }
-    .header, .footer, .top-link, .skip-link, .breadcrumbs,
-    .post-description, .resume-actions, .pdf-reader { display: none !important; }
-    :root { --main-width: 100%; }
-    body, .main, .post-single, .post-content {
-        max-width: none;
-        margin: 0;
-        padding: 0;
-        color: #202124;
-        background: #fff;
-    }
-    .post-title {
-        margin-bottom: 0.3rem;
-        color: #164f7a;
-        font-size: 25pt;
-    }
-    .post-content { font-size: 9.5pt; line-height: 1.35; }
-    .post-content h2 {
-        margin: 0.8rem 0 0.35rem;
-        padding-bottom: 0.1rem;
-        color: #164f7a;
-        font-size: 15pt;
-        border-bottom: 1px solid #6b7280;
-        break-after: avoid;
-    }
-    .post-content h3 {
-        color: #222;
-        font-size: 11pt;
-        break-after: avoid;
-    }
-    .cv-entry { margin-bottom: 0.55rem; break-inside: avoid; }
-    .cv-entry ul { margin-top: 0.2rem; }
-    .cv-entry li { margin-bottom: 0.08rem; }
-    a { color: inherit; text-decoration: none; }
 }
