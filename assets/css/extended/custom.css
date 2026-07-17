@@ -1,0 +1,85 @@
+.skip-link {
+    position: fixed;
+    z-index: 1000;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    background: #005a46;
+    border-radius: 0.4rem;
+    transform: translateY(-160%);
+    transition: transform 0.15s ease;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+.availability-link {
+    display: inline-block;
+    margin-top: 0.35rem;
+    color: #006b50;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.dark .availability-link { color: #53e3ad; }
+
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid #0b72d0;
+    outline-offset: 3px;
+    border-radius: 0.2rem;
+}
+
+.dark a:focus-visible,
+.dark button:focus-visible { outline-color: #74c0ff; }
+
+.about-portrait {
+    margin: 0 auto 1.5rem;
+    text-align: center;
+}
+
+.about-portrait img {
+    width: 200px;
+    height: 200px;
+    margin: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.service-list li,
+.experience-list li { margin-bottom: 0.4rem; }
+
+.pdf-reader-actions .button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+}
+
+.pdf-reader {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.pdf-reader--embed-only {
+    margin-top: 1.5rem;
+    padding-top: 0;
+    border-top: 0;
+}
+
+.pdf-reader object {
+    display: block;
+    min-height: 70vh;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+}
+
+.pdf-reader--embed-only object { margin-top: 0; }
+
+@media (max-width: 600px) {
+    .about-portrait img { width: 160px; height: 160px; }
+    .pdf-reader object { display: none; }
+}

@@ -1,0 +1,35 @@
+name: fourat-dev
+
+services:
+  website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/cache/nginx
+    security_opt:
+      - no-new-privileges:true
+
+  hugo-dev:
+    profiles: ["dev"]
+    image: ghcr.io/gohugoio/hugo:v0.164.0
+    working_dir: /project
+    command:
+      - server
+      - --buildDrafts
+      - --disableFastRender
+      - --bind
+      - 0.0.0.0
+      - --port
+      - "1313"
+      - --baseURL
+      - http://localhost:1313/
+    volumes:
+      - .:/project
+    ports:
+      - "1313:1313"

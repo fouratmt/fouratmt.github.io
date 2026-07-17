@@ -1,0 +1,14 @@
+{{- $src := .Get "src" | default "images/me.jpg" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- with resources.Get $src -}}
+  {{- $small := .Fill "240x240 Center webp q88" -}}
+  {{- $large := .Fill "480x480 Center webp q88" -}}
+  <figure class="about-portrait">
+    <img src="{{ $small.RelPermalink }}"
+      srcset="{{ $small.RelPermalink }} 240w, {{ $large.RelPermalink }} 480w"
+      sizes="(max-width: 600px) 160px, 200px"
+      width="240" height="240" alt="{{ $alt }}" loading="eager" decoding="async">
+  </figure>
+{{- else -}}
+  {{- errorf "profileImage shortcode could not find %q" $src -}}
+{{- end -}}

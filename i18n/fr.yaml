@@ -1,0 +1,10 @@
+skip_to_content: Aller au contenu
+primary_navigation: Navigation principale
+language_navigation: Sélection de la langue
+switch_language: Passer en {{ . }}
+toggle_theme: Changer le thème de couleur
+privacy_policy: Politique de confidentialité
+go_to_top: Revenir en haut
+resume_pdf_title: CV téléchargeable
+open_pdf: Ouvrir ou télécharger le CV PDF
+pdf_fallback: Votre navigateur ne peut pas afficher le PDF directement.

@@ -1,0 +1,10 @@
+skip_to_content: Skip to content
+primary_navigation: Primary navigation
+language_navigation: Language selection
+switch_language: Switch to {{ . }}
+toggle_theme: Toggle color theme
+privacy_policy: Privacy Policy
+go_to_top: Go to top
+resume_pdf_title: Downloadable résumé
+open_pdf: Open or download the résumé PDF
+pdf_fallback: Your browser cannot display the PDF inline.

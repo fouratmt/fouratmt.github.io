@@ -1,0 +1,13 @@
+.git
+.github
+.hugo_build.lock
+.DS_Store
+AGENTS.md
+WEBSITE_AUDIT.md
+project_spec.md
+node_modules
+output
+public
+resources
+tmp
+npm-debug.log

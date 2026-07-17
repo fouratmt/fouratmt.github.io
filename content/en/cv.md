@@ -1,51 +1,17 @@
 ---
-title: "Resume - En"
-# description: "English resume of Fourat Mastouri"
+title: Resume - En
+summary: Open or download Fourat Mastouri's English résumé.
 draft: false
+author: Fourat
+hideMeta: false
 showToc: false
 ShowReadingTime: false
 ShowWordCount: false
-robotsNoIndex: true
----
-Direct link to the [pdf file](https://fourat.dev/resume_en.pdf)!
-
-Pour voir la version en Français, cliquer [ici 🇫🇷](/fr/cv)!
-
-{{< pdfReader "/resume_en.pdf" >}}
-
-
-<!-- ---
-draft: false
-layout: "staticpage"
-title: "MY CV"
-date: 2023-11-11
-# tags: ["first"]
-showToc: true
-TocOpen: false
-hidemeta: false
-comments: false
-# description: "Desc Text."
-# canonicalURL: "https://canonical.url/to/page"
-disableHLJS: false # to disable highlightjs
-disableShare: false
-hideSummary: false
-searchHidden: false
-ShowReadingTime: true
-ShowBreadCrumbs: true
-ShowPostNavLinks: true
-ShowWordCount: false
-ShowRssButtonInSectionTermList: true
-UseHugoToc: true
-cover:
-    image: "<image path/url>" # image path/url
-    alt: "<alt text>" # alt text
-    caption: "<text>" # display caption under cover
-    relative: false # when using page bundles set this to true
-    hidden: true # only hide on current single page
-# editPost:
-#     URL: "https://github.com/<path_to_repo>/content"
-#     Text: "Suggest Changes" # edit text
-#     appendFilePath: true # to append file path to Edit link
+schemaType: ProfilePage
 ---
 
-Hello world -->
+Direct link to [the English résumé PDF](/resume_en.pdf).
+
+View the [French version of the résumé]({{< relref path="cv.md" lang="fr" >}}) 🇫🇷.
+
+{{< pdfReader src="/resume_en.pdf" title="English résumé" linkText="Open or download the English résumé PDF" showLink="false" >}}

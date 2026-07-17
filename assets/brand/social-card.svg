@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Fourat Mastouri — Senior Data Engineer Consultant</title>
+  <desc id="desc">A dark blue social card with Fourat Mastouri's circular logo and a teal data-flow motif.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1d2a"/>
+      <stop offset="1" stop-color="#173b4d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#53e3ad"/>
+      <stop offset="1" stop-color="#65c8ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" rx="34" fill="url(#background)"/>
+  <circle cx="1040" cy="100" r="210" fill="#53e3ad" opacity="0.08"/>
+  <circle cx="1130" cy="590" r="260" fill="#65c8ff" opacity="0.07"/>
+  <path d="M0 520 C220 430 370 620 600 525 S950 430 1200 520" fill="none" stroke="url(#accent)" stroke-width="4" opacity="0.8"/>
+  <path d="M0 550 C230 470 380 640 610 555 S950 470 1200 550" fill="none" stroke="#fff" stroke-width="2" opacity="0.22"/>
+  <g filter="url(#shadow)">
+    <circle cx="170" cy="180" r="104" fill="#f6fafb"/>
+    <text x="170" y="210" text-anchor="middle" fill="#173b4d" font-family="Arial, Helvetica, sans-serif" font-size="104" font-weight="700">F</text>
+    <path d="M95 225c25-15 45-15 70 0s45 15 70 0" fill="none" stroke="#26a69a" stroke-width="8" stroke-linecap="round"/>
+    <path d="M104 243c22-12 39-12 61 0s39 12 61 0" fill="none" stroke="#65c8ff" stroke-width="6" stroke-linecap="round"/>
+  </g>
+  <text x="320" y="165" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700">Fourat Mastouri</text>
+  <text x="322" y="225" fill="#b7d3df" font-family="Arial, Helvetica, sans-serif" font-size="30">Senior Data Engineer Consultant</text>
+  <rect x="322" y="275" width="680" height="4" rx="2" fill="url(#accent)"/>
+  <text x="322" y="340" fill="#e8f2f5" font-family="Arial, Helvetica, sans-serif" font-size="30">Reliable data platforms · Quality · Delivery</text>
+  <text x="322" y="405" fill="#53e3ad" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700">Python · Spark · Airflow · AWS · DevOps</text>
+  <text x="322" y="475" fill="#b7d3df" font-family="Arial, Helvetica, sans-serif" font-size="25">fourat.dev</text>
+</svg>
