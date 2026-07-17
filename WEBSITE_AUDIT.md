@@ -28,6 +28,8 @@ The repository-actionable findings in this audit were addressed on 2026-07-15 in
 
 Two actions remain outside this repository: the equivalent response headers in `docs/security-headers.md` must be enabled in Cloudflare after this branch is deployed, and PDF tagging/metadata should be addressed in the separate LaTeX source project. The Docker runtime already applies its headers directly through NGINX, and this project no longer modifies the externally generated PDF artifacts.
 
+At the site owner's request, the header language/theme controls and footer links retain PaperMod's original compact spacing. The audit's 44 × 44px touch-target recommendation therefore remains intentionally unimplemented.
+
 ## Scope and method
 
 This audit covered:

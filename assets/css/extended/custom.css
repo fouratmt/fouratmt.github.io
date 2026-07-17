@@ -34,17 +34,6 @@ button:focus-visible {
 .dark a:focus-visible,
 .dark button:focus-visible { outline-color: #74c0ff; }
 
-.lang-switch a,
-#theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
-}
-
-.lang-switch { margin-inline-start: 0.15rem; }
-
 .about-portrait {
     margin: 0 auto 1.5rem;
     text-align: center;
@@ -80,12 +69,6 @@ button:focus-visible {
     margin-top: 1rem;
     border: 1px solid var(--border);
     border-radius: 0.4rem;
-}
-
-.footer a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
 }
 
 @media (max-width: 600px) {
