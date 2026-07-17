@@ -63,6 +63,12 @@ button:focus-visible {
     border-top: 1px solid var(--border);
 }
 
+.pdf-reader--embed-only {
+    margin-top: 1.5rem;
+    padding-top: 0;
+    border-top: 0;
+}
+
 .pdf-reader object {
     display: block;
     min-height: 70vh;
@@ -70,6 +76,8 @@ button:focus-visible {
     border: 1px solid var(--border);
     border-radius: 0.4rem;
 }
+
+.pdf-reader--embed-only object { margin-top: 0; }
 
 @media (max-width: 600px) {
     .about-portrait img { width: 160px; height: 160px; }
