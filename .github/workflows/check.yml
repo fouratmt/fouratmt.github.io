@@ -29,5 +29,5 @@ jobs:
         run: make quality
       - name: Run browser smoke checks
         run: make browser-smoke
-      - name: Build production container
+      - name: Validate local preview container build
         run: docker build --tag fourat-dev:ci .

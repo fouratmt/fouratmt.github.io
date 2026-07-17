@@ -24,9 +24,9 @@ The repository-actionable findings in this audit were addressed on 2026-07-15 in
 - moves source images through Hugo's responsive WebP pipeline, adds a 1200 × 630 social card, emits valid non-visible JSON-LD structured data, and removes unused taxonomy/search output;
 - expands the bilingual About content, keeps the CV routes focused on their owner-managed PDFs, improves the PDF embed and download fallback, and leaves the PDF artifacts owned by their external LaTeX build pipeline;
 - adds warning-as-error builds, generated-site/accessibility validation, and headless-browser route and mobile smoke checks for pull requests;
-- adds a multi-stage unprivileged Docker image, Docker Compose development/production services, and HTTP security headers for container deployments.
+- adds a multi-stage unprivileged Docker image, Docker Compose development and production-like local preview services, and HTTP security headers for local container testing.
 
-Two actions remain outside this repository: the equivalent response headers in `docs/security-headers.md` must be enabled in Cloudflare after this branch is deployed, and PDF tagging/metadata should be addressed in the separate LaTeX source project. The Docker runtime already applies its headers directly through NGINX, and this project no longer modifies the externally generated PDF artifacts.
+Two actions remain outside this repository: the equivalent response headers in `docs/security-headers.md` must be enabled in Cloudflare after this branch is deployed, and PDF tagging/metadata should be addressed in the separate LaTeX source project. The public website remains hosted by GitHub Pages; the local-only Docker preview applies its own headers through NGINX, and this project no longer modifies the externally generated PDF artifacts.
 
 At the site owner's request, the header language/theme controls and footer links retain PaperMod's original compact spacing. The audit's 44 × 44px touch-target recommendation therefore remains intentionally unimplemented.
 

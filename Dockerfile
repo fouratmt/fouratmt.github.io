@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1.7
+# Local production-like preview image. The public site is deployed to GitHub Pages.
 FROM ghcr.io/gohugoio/hugo:v0.164.0 AS build
 
 WORKDIR /project

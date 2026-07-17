@@ -1,6 +1,6 @@
 # fourat.dev
 
-Bilingual English/French portfolio for Fourat Mastouri, built with Hugo Extended and PaperMod. GitHub Actions validates and deploys the site to GitHub Pages; Cloudflare serves the custom domain.
+Bilingual English/French portfolio for Fourat Mastouri, built with Hugo Extended and PaperMod. GitHub Actions validates and deploys the public website to GitHub Pages. Docker is used only for local development and production-like previews.
 
 ## Requirements
 
@@ -32,15 +32,17 @@ make quality
 
 The native targets verify that the installed Hugo version matches `.hugo-version` before building. `make quality` performs a warning-as-error Hugo build and validates generated routes, local assets, language links, metadata, and core accessibility semantics. CI also runs `make browser-smoke` in headless Chrome to catch runtime errors, failed assets, mobile overflow, and incorrect translated routes.
 
-## Docker
+## Local Docker development
 
-Build and run the production image:
+Build and run the local NGINX preview:
 
 ```bash
 make docker-up
 ```
 
-Open <http://localhost:8080/>. The multi-stage image uses the official Hugo container to build the site and an unprivileged NGINX runtime to serve it with security headers. The runtime filesystem is read-only under Docker Compose.
+Open <http://localhost:8080/>. The multi-stage image uses the official Hugo container to build the site and an unprivileged NGINX runtime to serve a production-like local preview with security headers. The runtime filesystem is read-only under Docker Compose.
+
+This container is never deployed to `fourat.dev`; the public website is served by GitHub Pages.
 
 Stop it with:
 
@@ -67,7 +69,7 @@ docker run --rm -p 8080:8080 --read-only --tmpfs /tmp --tmpfs /var/cache/nginx f
 
 The downloadable files in `static/resume_en.pdf` and `static/resume_fr.pdf` are build artifacts from a separate LaTeX repository. That repository's GitHub Actions workflow builds and commits updated PDFs here.
 
-Do not edit or regenerate the PDF files in this project. The bilingual HTML CV pages are maintained separately as accessible web content.
+Do not edit or regenerate the PDF files in this project. The current `/cv/` and `/fr/cv/` pages provide accessible open/download wrappers for these PDFs. Full bilingual HTML résumé content is intentionally deferred to a separate pull request.
 
 ## Content conventions
 
@@ -78,6 +80,6 @@ Do not edit or regenerate the PDF files in this project. The bilingual HTML CV p
 
 ## Deployment
 
-Pull requests run the quality workflow. Pushes to `main` run the same checks before the GitHub Pages artifact is uploaded and deployed. The workflow pins Hugo 0.164.0, matching `.hugo-version` and the Docker builder.
+Pull requests run the quality workflow, including validation of the optional local Docker preview image. Pushes to `main` run the same site checks before the GitHub Pages artifact is uploaded and deployed. The workflow pins Hugo 0.164.0, matching `.hugo-version` and the Docker builder.
 
 Production response-header configuration for the Cloudflare/GitHub Pages deployment is documented in [`docs/security-headers.md`](docs/security-headers.md).
