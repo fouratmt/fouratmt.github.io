@@ -1,8 +1,7 @@
 {{- $src := .Get "src" -}}
 {{- $title := .Get "title" | default (i18n "resume_pdf_title" | default "Résumé PDF") -}}
 {{- $linkText := .Get "linkText" | default (i18n "open_pdf" | default "Open or download the PDF") -}}
-<section class="pdf-reader" aria-labelledby="pdf-reader-title">
-  <h2 id="pdf-reader-title">{{ $title }}</h2>
+<section class="pdf-reader" aria-label="{{ $title }}">
   <p class="pdf-reader-actions"><a class="button" href="{{ $src }}">{{ $linkText }}</a></p>
   <object data="{{ $src }}" type="application/pdf" width="100%" height="900" title="{{ $title }}" aria-label="{{ $title }}">
     <p>{{ i18n "pdf_fallback" | default "Your browser cannot display the PDF inline." }} <a href="{{ $src }}">{{ $linkText }}</a>.</p>
