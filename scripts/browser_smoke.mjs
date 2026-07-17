@@ -98,8 +98,9 @@ chrome.stderr.on("data", (chunk) => {
   chromeDiagnostics = `${chromeDiagnostics}${chunk}`.slice(-4000);
 });
 
-async function waitForJson(url, attempts = 80) {
-  for (let attempt = 0; attempt < attempts; attempt += 1) {
+async function waitForJson(url, timeoutMs = 30_000) {
+  const deadline = Date.now() + timeoutMs;
+  do {
     try {
       const response = await fetch(url);
       if (response.ok) return response.json();
@@ -108,8 +109,8 @@ async function waitForJson(url, attempts = 80) {
       throw new Error(`Chrome exited with code ${chrome.exitCode}:\n${chromeDiagnostics.trim()}`);
     }
     await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-  throw new Error(`Timed out waiting for ${url}${chromeDiagnostics ? `:\n${chromeDiagnostics.trim()}` : ""}`);
+  } while (Date.now() < deadline);
+  throw new Error(`Timed out after ${timeoutMs}ms waiting for ${url}${chromeDiagnostics ? `:\n${chromeDiagnostics.trim()}` : ""}`);
 }
 
 let socket;
