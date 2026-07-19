@@ -10,6 +10,7 @@ import {
 import {
   access,
   chmod,
+  cp,
   mkdtemp,
   mkdir,
   readFile,
@@ -207,6 +208,10 @@ async function renderMarkdown(markdown) {
   try {
     await mkdir(path.join(temporary, "content"), { recursive: true });
     await mkdir(path.join(temporary, "layouts", "_default"), { recursive: true });
+    await cp(path.join(ROOT, "themes", "PaperMod", "layouts", "shortcodes"), path.join(temporary, "layouts", "shortcodes"), { recursive: true });
+    await cp(path.join(ROOT, "layouts", "shortcodes"), path.join(temporary, "layouts", "shortcodes"), { recursive: true, force: true });
+    await cp(path.join(ROOT, "themes", "PaperMod", "assets"), path.join(temporary, "assets"), { recursive: true });
+    await cp(path.join(ROOT, "assets"), path.join(temporary, "assets"), { recursive: true, force: true });
     await writeFile(path.join(temporary, "hugo.toml"), 'baseURL = "https://fourat.dev/"\ndisableKinds = ["taxonomy", "term", "RSS", "sitemap", "robotsTXT", "404"]\n');
     await writeFile(path.join(temporary, "content", "page.md"), `+++\ntitle = "Protected render"\n+++\n\n${markdown.replace(/\s+$/, "")}\n`);
     await writeFile(
@@ -215,6 +220,10 @@ async function renderMarkdown(markdown) {
     );
     const result = spawnSync(process.env.HUGO || "hugo", ["--source", temporary, "--destination", path.join(temporary, "public")], {
       encoding: "utf8",
+      env: {
+        ...process.env,
+        HUGO_CACHEDIR: process.env.HUGO_CACHEDIR || path.join(temporary, "cache"),
+      },
     });
     if (result.error) throw result.error;
     if (result.status !== 0) {
@@ -244,8 +253,8 @@ async function protectPage(pagePath, markdownOverride) {
 
   const location = payloadLocation(pagePath);
   const password = await loadPassword();
-  let markdown = markdownOverride ?? page.body.trim();
-  if (!markdown) {
+  let markdown = markdownOverride === undefined ? page.body.trim() : markdownOverride.trim();
+  if (!markdown && markdownOverride === undefined) {
     const configuredUrl = readField(page, "encryptedPayload");
     if (!configuredUrl || !(await pathExists(location.file))) {
       throw new Error("the page has no plaintext body and no existing encrypted payload");
@@ -260,6 +269,16 @@ async function protectPage(pagePath, markdownOverride) {
   await atomicWrite(location.file, `${JSON.stringify(payload)}\n`, 0o644);
   await atomicWrite(pagePath, serializePage(page), 0o644);
   console.log(`Protected ${path.relative(ROOT, pagePath)} -> ${path.relative(ROOT, location.file)}`);
+}
+
+async function recoverPage(pagePath, draftArgument) {
+  if (!draftArgument) throw new Error("provide the preserved plaintext draft path");
+  const draft = path.resolve(draftArgument);
+  const details = await stat(draft);
+  if (!details.isFile()) throw new Error(`${draft} is not a file`);
+  await protectPage(pagePath, await readFile(draft, "utf8"));
+  console.log(`Recovered encrypted content from ${draft}`);
+  console.log("The plaintext recovery draft was not deleted; remove it after checking the page.");
 }
 
 async function editPage(pagePath) {
@@ -351,12 +370,13 @@ async function initializePassword() {
 }
 
 async function main() {
-  const [command, pageArgument] = process.argv.slice(2);
+  const [command, pageArgument, draftArgument] = process.argv.slice(2);
   if (command === "init-password") await initializePassword();
   else if (command === "protect") await protectPage(resolveContentPage(pageArgument));
   else if (command === "edit") await editPage(resolveContentPage(pageArgument));
+  else if (command === "recover") await recoverPage(resolveContentPage(pageArgument), draftArgument);
   else if (command === "verify") await verifyPages();
-  else throw new Error("usage: protected_page.mjs <init-password|protect|edit|verify> [content/page.md]");
+  else throw new Error("usage: protected_page.mjs <init-password|protect|edit|recover|verify> [content/page.md] [draft.md]");
 }
 
 main().catch((error) => fail(error.message));

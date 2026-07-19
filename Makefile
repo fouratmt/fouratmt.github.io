@@ -1,4 +1,4 @@
-.PHONY: help check-hugo init serve build check quality browser-smoke protected-password protect-page edit-protected-page verify-protected-pages clean theme-update docker-check docker-build docker-up docker-dev docker-down
+.PHONY: help check-hugo init serve build check quality browser-smoke protected-password protect-page edit-protected-page recover-protected-page verify-protected-pages clean theme-update docker-check docker-build docker-up docker-dev docker-down
 
 HUGO ?= hugo
 HUGO_VERSION := $(shell tr -d '[:space:]' < .hugo-version)
@@ -16,6 +16,7 @@ help:
 	@echo "  protected-password - create the ignored local protected-page password"
 	@echo "  protect-page   - encrypt PAGE and replace its Markdown body with a safe stub"
 	@echo "  edit-protected-page - edit and re-encrypt PAGE through a temporary local file"
+	@echo "  recover-protected-page - encrypt PAGE from a preserved plaintext DRAFT"
 	@echo "  verify-protected-pages - validate stubs and encrypted payload envelopes"
 	@echo "  docker-check   - validate the Docker Compose configuration"
 	@echo "  docker-build   - build the local NGINX preview image"
@@ -64,6 +65,11 @@ protect-page: check-hugo
 edit-protected-page: check-hugo
 	@test -n "$(PAGE)" || (echo "Usage: make edit-protected-page PAGE=content/en/private.md" >&2; exit 2)
 	node scripts/protected_page.mjs edit "$(PAGE)"
+
+recover-protected-page: check-hugo
+	@test -n "$(PAGE)" || (echo "Usage: make recover-protected-page PAGE=content/en/private.md DRAFT=/tmp/private.md" >&2; exit 2)
+	@test -n "$(DRAFT)" || (echo "Usage: make recover-protected-page PAGE=content/en/private.md DRAFT=/tmp/private.md" >&2; exit 2)
+	node scripts/protected_page.mjs recover "$(PAGE)" "$(DRAFT)"
 
 verify-protected-pages:
 	node scripts/protected_page.mjs verify
