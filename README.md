@@ -70,7 +70,7 @@ Edit an existing page without restoring plaintext inside the repository:
 EDITOR=nano make edit-protected-page PAGE=content/en/private-page.md
 ```
 
-The decrypted Markdown exists only in a mode-restricted temporary directory while the editor is open. Saving and closing the editor renders and encrypts it again, then removes the temporary directory. `VISUAL` takes precedence over `EDITOR`.
+The decrypted Markdown exists only in a mode-restricted temporary directory while the editor is open. Saving and closing the editor renders and encrypts it again, then removes the temporary directory. `VISUAL` takes precedence over `EDITOR`. If the editor or Hugo fails, the command prints the preserved draft path so the edit can be recovered instead of silently deleting it; remove that temporary file after recovery.
 
 Protected pages use the normal PaperMod header, footer, typography, responsive layout, language switch, and theme toggle. Before decryption they show a matching password form; afterward the decrypted HTML is inserted into the normal `.post-content` container. They are marked `noindex, nofollow`, excluded from sitemaps, and must not be added to menus or public content.
 

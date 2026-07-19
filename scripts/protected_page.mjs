@@ -213,11 +213,17 @@ async function renderMarkdown(markdown) {
       path.join(temporary, "layouts", "_default", "single.html"),
       '{{ .Content | jsonify }}\n',
     );
-    const result = spawnSync(process.env.HUGO || "hugo", ["--source", temporary, "--destination", path.join(temporary, "public"), "--quiet"], {
+    const result = spawnSync(process.env.HUGO || "hugo", ["--source", temporary, "--destination", path.join(temporary, "public")], {
       encoding: "utf8",
     });
     if (result.error) throw result.error;
-    if (result.status !== 0) throw new Error(`Hugo could not render the protected content: ${(result.stderr || result.stdout).trim()}`);
+    if (result.status !== 0) {
+      const diagnostics = [result.stderr, result.stdout]
+        .map((output) => output?.trim())
+        .filter(Boolean)
+        .join("\n");
+      throw new Error(`Hugo could not render the protected content (exit ${result.status})${diagnostics ? `:\n${diagnostics}` : ""}`);
+    }
     const output = await readFile(path.join(temporary, "public", "page", "index.html"), "utf8");
     const rendered = JSON.parse(output);
     if (typeof rendered !== "string") throw new Error("could not read Hugo's rendered protected content");
@@ -268,14 +274,21 @@ async function editPage(pagePath) {
 
   const temporary = await mkdtemp(path.join(tmpdir(), "fourat-protected-edit-"));
   const draft = path.join(temporary, path.basename(pagePath));
+  let completed = false;
   try {
     await writeFile(draft, `${content.markdown.replace(/\s+$/, "")}\n`, { encoding: "utf8", mode: 0o600 });
-    const result = spawnSync(editor, [draft], { stdio: "inherit", shell: true });
+    const shell = process.env.SHELL || "/bin/sh";
+    const result = spawnSync(shell, ["-c", `${editor} \"$1\"`, "protected-page-editor", draft], { stdio: "inherit" });
     if (result.error) throw result.error;
     if (result.status !== 0) throw new Error(`${editor} exited with status ${result.status}`);
     await protectPage(pagePath, (await readFile(draft, "utf8")).trim());
+    completed = true;
   } finally {
-    await rm(temporary, { recursive: true, force: true });
+    if (completed) {
+      await rm(temporary, { recursive: true, force: true });
+    } else {
+      console.error(`Plaintext draft preserved for recovery: ${draft}`);
+    }
   }
 }
 
