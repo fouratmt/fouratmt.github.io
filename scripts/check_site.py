@@ -3,7 +3,10 @@
 
 from __future__ import annotations
 
+import base64
+import binascii
 import json
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -125,6 +128,13 @@ def main() -> int:
         "/fr/privacy/": ("fr-FR", "noindex, follow"),
     }
 
+    protected_slug = "my-links"
+    protected_robots = "noindex, nofollow, noarchive, nosnippet, noimageindex"
+    protected_routes = {
+        f"/{protected_slug}/": "en-US",
+        f"/fr/{protected_slug}/": "fr-FR",
+    }
+
     parsed_pages: dict[Path, PageParser] = {}
     for html_file in root.rglob("*.html"):
         parser = parse_page(html_file)
@@ -192,11 +202,67 @@ def main() -> int:
         if not parser.json_ld_blocks:
             errors.append(f"{route}: missing JSON-LD structured data")
 
+    expected_payload_keys = {"version", "kdf", "cipher", "iterations", "salt", "iv", "ciphertext"}
+    for route, language in protected_routes.items():
+        path = route_file(root, route)
+        if not path.is_file():
+            errors.append(f"Missing protected page route: {route}")
+            continue
+        parser = parsed_pages.get(path) or parse_page(path)
+        source = path.read_text(encoding="utf-8", errors="replace")
+        if parser.html_lang != language:
+            errors.append(f"{route}: expected lang={language}, found {parser.html_lang or 'missing'}")
+        robot_values = [meta.get("content", "") for meta in parser.metas if meta.get("name", "").lower() == "robots"]
+        if not robot_values or robot_values[-1] != protected_robots:
+            errors.append(f"{route}: expected final robots={protected_robots}, found {robot_values}")
+        if "password-protected page-locked" not in source:
+            errors.append(f"{route}: missing initial encrypted-page lock")
+        if "password-gate-form" not in source:
+            errors.append(f"{route}: missing reusable password gate")
+        if "password-hash" in source.lower():
+            errors.append(f"{route}: password verifier must not be embedded in HTML")
+        payload_match = re.search(r'data-protected-page-payload=(?:"([^"]+)"|([^\s>]+))', source)
+        if not payload_match:
+            errors.append(f"{route}: missing encrypted payload URL")
+            continue
+        payload_url = payload_match.group(1) or payload_match.group(2)
+        payload_path = root / payload_url.lstrip("/")
+        if not payload_path.is_file():
+            errors.append(f"{route}: encrypted payload does not exist: {payload_url}")
+            continue
+        try:
+            payload = json.loads(payload_path.read_text(encoding="utf-8"))
+            if set(payload) != expected_payload_keys:
+                errors.append(f"{route}: encrypted payload exposes unsupported fields")
+            if payload.get("version") != 1 or payload.get("kdf") != "PBKDF2-SHA256" or payload.get("cipher") != "AES-256-GCM":
+                errors.append(f"{route}: encrypted payload algorithms are invalid")
+            if not isinstance(payload.get("iterations"), int) or payload["iterations"] < 100_000:
+                errors.append(f"{route}: encrypted payload iteration count is too low")
+            if len(base64.b64decode(payload.get("salt", ""), validate=True)) < 16:
+                errors.append(f"{route}: encrypted payload salt is invalid")
+            if len(base64.b64decode(payload.get("iv", ""), validate=True)) != 12:
+                errors.append(f"{route}: encrypted payload IV is invalid")
+            if len(base64.b64decode(payload.get("ciphertext", ""), validate=True)) <= 16:
+                errors.append(f"{route}: encrypted payload ciphertext is invalid")
+        except (binascii.Error, ValueError, TypeError, json.JSONDecodeError) as error:
+            errors.append(f"{route}: encrypted payload is invalid: {error}")
+
+    for sitemap in root.rglob("sitemap.xml"):
+        if protected_slug in sitemap.read_text(encoding="utf-8", errors="replace"):
+            errors.append(f"{sitemap.relative_to(root)}: protected page must not be listed")
+
+    protected_paths = {route_file(root, route) for route in protected_routes}
+    for html_file in root.rglob("*.html"):
+        if html_file not in protected_paths and protected_slug in html_file.read_text(encoding="utf-8", errors="replace"):
+            errors.append(f"{html_file.relative_to(root)}: private page is linked or disclosed")
+
     translation_expectations = {
         "/about/": "/fr/about/",
         "/cv/": "/fr/cv/",
+        f"/{protected_slug}/": f"/fr/{protected_slug}/",
         "/fr/about/": "/about/",
         "/fr/cv/": "/cv/",
+        f"/fr/{protected_slug}/": f"/{protected_slug}/",
     }
     for route, expected_path in translation_expectations.items():
         parser = parsed_pages.get(route_file(root, route)) or parse_page(route_file(root, route))

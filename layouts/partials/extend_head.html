@@ -12,11 +12,17 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
 {{- $page := . }}
+{{- if .Params.passwordProtected }}
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+{{- $passwordScript := resources.Get "js/password-protection.js" | minify | fingerprint }}
+<script src="{{ $passwordScript.RelPermalink }}" integrity="{{ $passwordScript.Data.Integrity }}" defer></script>
+{{- else }}
 {{- with .Params.robots }}
 <meta name="robots" content="{{ . }}">
 {{- else }}
 {{- if eq $page.Kind "404" }}
 <meta name="robots" content="noindex, follow">
+{{- end }}
 {{- end }}
 {{- end }}
 

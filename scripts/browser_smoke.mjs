@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
+import { createCipheriv, pbkdf2Sync, randomBytes } from "node:crypto";
 import { createReadStream, existsSync } from "node:fs";
-import { mkdtemp } from "node:fs/promises";
+import { mkdtemp, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { createServer as createNetServer } from "node:net";
 import { tmpdir } from "node:os";
@@ -10,6 +11,37 @@ import path from "node:path";
 const siteRoot = path.resolve(process.argv[2] ?? "/tmp/fourat-browser-site");
 const host = "127.0.0.1";
 const sitePort = Number(process.env.SITE_PORT ?? 4173);
+const protectedFixturePassword = randomBytes(24).toString("base64url");
+
+async function installProtectedPageFixture() {
+  const page = await readFile(path.join(siteRoot, "my-links", "index.html"), "utf8");
+  const payloadMatch = page.match(/data-protected-page-payload=(?:"([^"]+)"|([^\s>]+))/);
+  const payloadUrl = payloadMatch?.[1] || payloadMatch?.[2];
+  if (!payloadUrl) throw new Error("Protected browser-test page does not reference an encrypted payload");
+  const salt = randomBytes(16);
+  const iv = randomBytes(12);
+  const key = pbkdf2Sync(protectedFixturePassword, salt, 100_000, 32, "sha256");
+  const cipher = createCipheriv("aes-256-gcm", key, iv);
+  cipher.setAAD(Buffer.from("fourat.dev:protected-page:v1", "utf8"));
+  const cleartext = Buffer.from(JSON.stringify({
+    version: 1,
+    markdown: "Browser-only encrypted fixture.",
+    html: '<p id="protected-browser-fixture">Browser-only encrypted fixture.</p>',
+  }));
+  const ciphertext = Buffer.concat([cipher.update(cleartext), cipher.final(), cipher.getAuthTag()]);
+  const payload = {
+    version: 1,
+    kdf: "PBKDF2-SHA256",
+    cipher: "AES-256-GCM",
+    iterations: 100_000,
+    salt: salt.toString("base64"),
+    iv: iv.toString("base64"),
+    ciphertext: ciphertext.toString("base64"),
+  };
+  await writeFile(path.join(siteRoot, payloadUrl.replace(/^\//, "")), `${JSON.stringify(payload)}\n`);
+}
+
+await installProtectedPageFixture();
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -163,8 +195,10 @@ try {
     ["/fr/about/", "fr-FR", "/about/", "index, follow", 1440, 900],
     ["/fr/cv/", "fr-FR", "/cv/", "index, follow", 1440, 900],
     ["/fr/privacy/", "fr-FR", "/privacy/", "noindex, follow", 1440, 900],
+    ["/my-links/", "en-US", "/fr/my-links/", "noindex, nofollow, noarchive, nosnippet, noimageindex", 1440, 900],
     ["/", "en-US", "/fr/", "index, follow", 375, 812],
     ["/fr/cv/", "fr-FR", "/cv/", "index, follow", 375, 812],
+    ["/fr/my-links/", "fr-FR", "/my-links/", "noindex, nofollow, noarchive, nosnippet, noimageindex", 375, 812],
   ];
 
   const failures = [];
@@ -199,6 +233,10 @@ try {
           schemaValid: schemas.every((schema) => { try { JSON.parse(schema.textContent); return true; } catch { return false; } }),
           schemaVisible: document.body.innerText.includes('"@context":"https://schema.org"'),
           profileButtons: [...document.querySelectorAll('.profile .buttons .button')].map((button) => button.textContent.trim()),
+          pageLocked: document.body.classList.contains('page-locked'),
+          gateVisible: document.querySelector('#password-gate') ? getComputedStyle(document.querySelector('#password-gate')).display !== 'none' : false,
+          protectedBodyVisible: document.querySelector('.main > .post-single') ? getComputedStyle(document.querySelector('.main > .post-single')).display !== 'none' : null,
+          headerVisible: getComputedStyle(document.querySelector('.header')).display !== 'none',
         };
       })()`,
       returnByValue: true,
@@ -217,6 +255,63 @@ try {
     if (!result.schemaValid) failures.push(`${label}: invalid JSON-LD structured data`);
     if (result.schemaVisible) failures.push(`${label}: JSON-LD visible in page content`);
     if ((route === "/" || route === "/fr/") && (!result.profileButtons.some((label) => label.includes("📧")) || !result.profileButtons.some((label) => label.includes("📝")))) failures.push(`${label}: profile button icons missing`);
+    const protectedRoute = route.includes("my-links");
+    if (protectedRoute && (!result.pageLocked || !result.gateVisible || result.protectedBodyVisible || !result.headerVisible)) failures.push(`${label}: encrypted page is not initially locked`);
+    if (!protectedRoute && result.pageLocked) failures.push(`${label}: public page is unexpectedly locked`);
+
+    if (route === "/my-links/") {
+      await cdp("Runtime.evaluate", {
+        expression: `(() => {
+          document.querySelector('#protected-page-password').value = 'definitely-wrong-password';
+          document.querySelector('#password-gate-form').requestSubmit();
+        })()`,
+      });
+      for (let attempt = 0; attempt < 100; attempt += 1) {
+        const state = await cdp("Runtime.evaluate", {
+          expression: "document.querySelector('#password-gate-status').textContent",
+          returnByValue: true,
+        });
+        if (state.result.value === "Incorrect password.") break;
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+      const rejected = await cdp("Runtime.evaluate", {
+        expression: `({
+          status: document.querySelector('#password-gate-status').textContent,
+          locked: document.body.classList.contains('page-locked')
+        })`,
+        returnByValue: true,
+      });
+      if (rejected.result.value.status !== "Incorrect password." || !rejected.result.value.locked) {
+        failures.push(`${label}: incorrect password was not rejected`);
+      }
+
+      await cdp("Runtime.evaluate", {
+        expression: `(() => {
+          document.querySelector('#protected-page-password').value = ${JSON.stringify(protectedFixturePassword)};
+          document.querySelector('#password-gate-form').requestSubmit();
+        })()`,
+      });
+      for (let attempt = 0; attempt < 100; attempt += 1) {
+        const state = await cdp("Runtime.evaluate", {
+          expression: "document.body.classList.contains('page-locked')",
+          returnByValue: true,
+        });
+        if (state.result.value === false) break;
+        await new Promise((resolve) => setTimeout(resolve, 50));
+      }
+      const unlocked = await cdp("Runtime.evaluate", {
+        expression: `({
+          locked: document.body.classList.contains('page-locked'),
+          gateVisible: getComputedStyle(document.querySelector('#password-gate')).display !== 'none',
+          fixture: document.querySelector('#protected-browser-fixture')?.textContent,
+          articleVisible: getComputedStyle(document.querySelector('.main > .post-single')).display !== 'none'
+        })`,
+        returnByValue: true,
+      });
+      if (unlocked.result.value.locked || unlocked.result.value.gateVisible || !unlocked.result.value.articleVisible || unlocked.result.value.fixture !== "Browser-only encrypted fixture.") {
+        failures.push(`${label}: correct password did not reveal decrypted content`);
+      }
+    }
     failures.push(...badResponses.map((failure) => `${label}: ${failure}`));
     failures.push(...runtimeErrors.map((failure) => `${label}: runtime error: ${failure}`));
   }

@@ -13,6 +13,98 @@
 
 .skip-link:focus { transform: translateY(0); }
 
+.password-gate { display: none; }
+
+body.password-protected.page-locked .main > :not(.password-gate) { display: none; }
+
+body.password-protected.page-locked .password-gate { display: block; }
+
+.password-gate__title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.password-gate__icon {
+    flex: 0 0 auto;
+    color: #006b50;
+}
+
+.dark .password-gate__icon { color: #53e3ad; }
+
+.password-gate__content {
+    max-width: 620px;
+    padding-top: 0.5rem;
+}
+
+.password-gate__intro { color: var(--content); }
+
+.password-gate__form {
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.password-gate__form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.password-gate__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+}
+
+.password-gate__row input {
+    min-width: 0;
+    min-height: 44px;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--primary);
+    background: var(--code-bg);
+}
+
+.password-gate__submit {
+    min-height: 44px;
+    padding: 0.65rem 1.1rem;
+    border-radius: var(--radius);
+    color: var(--primary);
+    background: var(--tertiary);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.15s;
+}
+
+.password-gate__submit:hover { background: var(--border); }
+
+.password-gate__submit:active { transform: scale(0.96); }
+
+.password-gate__submit:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.password-gate__status {
+    min-height: 1.35rem;
+    margin: 0.7rem 0 0;
+    color: #b42318;
+    font-size: 0.9rem;
+}
+
+.dark .password-gate__status { color: #ffb4ab; }
+
+.protected-page-content:focus { outline: none; }
+
+@media (max-width: 480px) {
+    .password-gate__row { grid-template-columns: 1fr; }
+    .password-gate__submit { width: 100%; }
+    .password-gate__title-row { align-items: flex-start; }
+}
+
 .availability-link {
     display: inline-block;
     margin-top: 0.35rem;

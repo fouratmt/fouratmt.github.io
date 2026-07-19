@@ -1,4 +1,4 @@
-.PHONY: help check-hugo init serve build check quality browser-smoke clean theme-update docker-check docker-build docker-up docker-dev docker-down
+.PHONY: help check-hugo init serve build check quality browser-smoke protected-password protect-page edit-protected-page verify-protected-pages clean theme-update docker-check docker-build docker-up docker-dev docker-down
 
 HUGO ?= hugo
 HUGO_VERSION := $(shell tr -d '[:space:]' < .hugo-version)
@@ -13,6 +13,10 @@ help:
 	@echo "  check          - build to /tmp and validate generated routes/assets"
 	@echo "  quality        - run build, link/metadata, and accessibility checks"
 	@echo "  browser-smoke  - run responsive route checks in headless Chrome"
+	@echo "  protected-password - create the ignored local protected-page password"
+	@echo "  protect-page   - encrypt PAGE and replace its Markdown body with a safe stub"
+	@echo "  edit-protected-page - edit and re-encrypt PAGE through a temporary local file"
+	@echo "  verify-protected-pages - validate stubs and encrypted payload envelopes"
 	@echo "  docker-check   - validate the Docker Compose configuration"
 	@echo "  docker-build   - build the local NGINX preview image"
 	@echo "  docker-up      - run the local NGINX preview at localhost:8080"
@@ -49,6 +53,20 @@ browser-smoke: check-hugo
 	rm -rf /tmp/fourat-browser-site
 	HUGO_CACHEDIR=$(HUGO_CACHEDIR) $(HUGO) --gc --minify --panicOnWarning --destination /tmp/fourat-browser-site
 	node scripts/browser_smoke.mjs /tmp/fourat-browser-site
+
+protected-password:
+	node scripts/protected_page.mjs init-password
+
+protect-page: check-hugo
+	@test -n "$(PAGE)" || (echo "Usage: make protect-page PAGE=content/en/private.md" >&2; exit 2)
+	node scripts/protected_page.mjs protect "$(PAGE)"
+
+edit-protected-page: check-hugo
+	@test -n "$(PAGE)" || (echo "Usage: make edit-protected-page PAGE=content/en/private.md" >&2; exit 2)
+	node scripts/protected_page.mjs edit "$(PAGE)"
+
+verify-protected-pages:
+	node scripts/protected_page.mjs verify
 
 docker-check:
 	docker compose config --quiet
