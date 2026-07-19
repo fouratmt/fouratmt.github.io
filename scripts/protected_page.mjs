@@ -124,12 +124,21 @@ function resolveContentPage(value) {
   return resolved;
 }
 
-function payloadLocation(pagePath) {
+function newPayloadLocation(pagePath) {
   const relative = path.relative(CONTENT_ROOT, pagePath).replaceAll(path.sep, "/");
   const identifier = createHash("sha256").update(relative).digest("hex").slice(0, 24);
   return {
     file: path.join(PAYLOAD_ROOT, `${identifier}.json`),
     url: `/protected-pages/${identifier}.json`,
+  };
+}
+
+function configuredPayloadLocation(url) {
+  const match = url?.match(/^\/protected-pages\/([a-f0-9]{24}\.json)$/);
+  if (!match) throw new Error(`encryptedPayload must match /protected-pages/<24 lowercase hex characters>.json, found ${JSON.stringify(url)}`);
+  return {
+    file: path.join(PAYLOAD_ROOT, match[1]),
+    url,
   };
 }
 
@@ -251,11 +260,11 @@ async function protectPage(pagePath, markdownOverride) {
   const page = parsePage(source, path.relative(ROOT, pagePath));
   if (!isProtected(page)) throw new Error(`${path.relative(ROOT, pagePath)} must set passwordProtected = true`);
 
-  const location = payloadLocation(pagePath);
+  const configuredUrl = readField(page, "encryptedPayload");
+  const location = configuredUrl ? configuredPayloadLocation(configuredUrl) : newPayloadLocation(pagePath);
   const password = await loadPassword();
   let markdown = markdownOverride === undefined ? page.body.trim() : markdownOverride.trim();
   if (!markdown && markdownOverride === undefined) {
-    const configuredUrl = readField(page, "encryptedPayload");
     if (!configuredUrl || !(await pathExists(location.file))) {
       throw new Error("the page has no plaintext body and no existing encrypted payload");
     }
@@ -285,7 +294,9 @@ async function editPage(pagePath) {
   const source = await readFile(pagePath, "utf8");
   const page = parsePage(source, path.relative(ROOT, pagePath));
   if (!isProtected(page)) throw new Error(`${path.relative(ROOT, pagePath)} is not protected`);
-  const location = payloadLocation(pagePath);
+  const configuredUrl = readField(page, "encryptedPayload");
+  if (!configuredUrl) throw new Error(`${path.relative(ROOT, pagePath)} has no encryptedPayload`);
+  const location = configuredPayloadLocation(configuredUrl);
   const password = await loadPassword();
   const content = decryptContent(password, await readPayload(location.file));
   const editor = process.env.VISUAL || process.env.EDITOR;
@@ -337,11 +348,10 @@ async function verifyPages() {
       errors.push(`${relative}: missing encryptedPayload`);
       continue;
     }
-    const expected = payloadLocation(pagePath);
-    if (configuredUrl !== expected.url) errors.push(`${relative}: encryptedPayload must be ${expected.url}`);
-    usedPayloads.add(expected.file);
     try {
-      validateEnvelope(await readPayload(expected.file), path.relative(ROOT, expected.file));
+      const location = configuredPayloadLocation(configuredUrl);
+      usedPayloads.add(location.file);
+      validateEnvelope(await readPayload(location.file), path.relative(ROOT, location.file));
     } catch (error) {
       errors.push(`${relative}: ${error.message}`);
     }

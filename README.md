@@ -64,6 +64,8 @@ make protect-page PAGE=content/fr/private-page.md
 
 The command renders the body with Hugo, encrypts both the rendered HTML and editable Markdown, creates an opaque JSON payload below `static/protected-pages/`, adds `encryptedPayload` to the front matter, and removes the plaintext body. The JSON is only an encryption envelope containing the algorithm identifiers, PBKDF2 iteration count, random salt, random IV, and ciphertext.
 
+`encryptedPayload` is the page's stable ciphertext identity. You can rename or move an already protected Markdown stub without renaming or regenerating its payload; keep the existing `encryptedPayload` value unchanged.
+
 Edit an existing page without restoring plaintext inside the repository:
 
 ```bash

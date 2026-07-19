@@ -2,7 +2,7 @@
 import { spawn } from "node:child_process";
 import { createCipheriv, pbkdf2Sync, randomBytes } from "node:crypto";
 import { createReadStream, existsSync } from "node:fs";
-import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { createServer as createNetServer } from "node:net";
 import { tmpdir } from "node:os";
@@ -13,9 +13,47 @@ const host = "127.0.0.1";
 const sitePort = Number(process.env.SITE_PORT ?? 4173);
 const protectedFixturePassword = randomBytes(24).toString("base64url");
 
-async function installProtectedPageFixture() {
-  const page = await readFile(path.join(siteRoot, "my-links", "index.html"), "utf8");
-  const payloadMatch = page.match(/data-protected-page-payload=(?:"([^"]+)"|([^\s>]+))/);
+function attribute(tag, name) {
+  const match = tag.match(new RegExp(`(?:^|\\s)${name}=(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i"));
+  return match?.[1] ?? match?.[2] ?? match?.[3] ?? null;
+}
+
+async function findProtectedPages(directory = siteRoot) {
+  const pages = [];
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const target = path.join(directory, entry.name);
+    if (entry.isDirectory()) pages.push(...await findProtectedPages(target));
+    else if (entry.isFile() && entry.name === "index.html") {
+      const source = await readFile(target, "utf8");
+      if (!source.includes("data-protected-page-payload=")) continue;
+      const relative = path.relative(siteRoot, target).replaceAll(path.sep, "/");
+      const route = `/${relative.replace(/index\.html$/, "")}`;
+      const htmlTag = source.match(/<html\b[^>]*>/i)?.[0] ?? "";
+      const language = attribute(htmlTag, "lang");
+      const alternates = (source.match(/<link\b[^>]*>/gi) ?? [])
+        .filter((tag) => attribute(tag, "rel") === "alternate" && attribute(tag, "hreflang"))
+        .map((tag) => ({ language: attribute(tag, "hreflang"), href: attribute(tag, "href") }));
+      pages.push({ source, route, language, alternates });
+    }
+  }
+  return pages;
+}
+
+const protectedPages = await findProtectedPages();
+const protectedFixturePage = protectedPages.find((page) => page.language === "en-US") ?? protectedPages[0];
+if (!protectedFixturePage) throw new Error("No protected browser-test page was generated");
+const protectedRouteSet = new Set(protectedPages.map((page) => page.route));
+
+function translatedRoute(page) {
+  for (const alternate of page.alternates) {
+    const route = new URL(alternate.href, "https://fourat.dev").pathname;
+    if (route !== page.route && protectedRouteSet.has(route)) return route;
+  }
+  throw new Error(`Protected browser-test page ${page.route} has no translated route`);
+}
+
+async function installProtectedPageFixture(page) {
+  const payloadMatch = page.source.match(/data-protected-page-payload=(?:"([^"]+)"|([^\s>]+))/);
   const payloadUrl = payloadMatch?.[1] || payloadMatch?.[2];
   if (!payloadUrl) throw new Error("Protected browser-test page does not reference an encrypted payload");
   const salt = randomBytes(16);
@@ -41,7 +79,7 @@ async function installProtectedPageFixture() {
   await writeFile(path.join(siteRoot, payloadUrl.replace(/^\//, "")), `${JSON.stringify(payload)}\n`);
 }
 
-await installProtectedPageFixture();
+await installProtectedPageFixture(protectedFixturePage);
 
 const mimeTypes = {
   ".css": "text/css; charset=utf-8",
@@ -195,11 +233,20 @@ try {
     ["/fr/about/", "fr-FR", "/about/", "index, follow", 1440, 900],
     ["/fr/cv/", "fr-FR", "/cv/", "index, follow", 1440, 900],
     ["/fr/privacy/", "fr-FR", "/privacy/", "noindex, follow", 1440, 900],
-    ["/my-links/", "en-US", "/fr/my-links/", "noindex, nofollow, noarchive, nosnippet, noimageindex", 1440, 900],
     ["/", "en-US", "/fr/", "index, follow", 375, 812],
     ["/fr/cv/", "fr-FR", "/cv/", "index, follow", 375, 812],
-    ["/fr/my-links/", "fr-FR", "/my-links/", "noindex, nofollow, noarchive, nosnippet, noimageindex", 375, 812],
   ];
+  const protectedRobots = "noindex, nofollow, noarchive, nosnippet, noimageindex";
+  for (const page of protectedPages) {
+    checks.push([
+      page.route,
+      page.language,
+      translatedRoute(page),
+      protectedRobots,
+      page === protectedFixturePage ? 1440 : 375,
+      page === protectedFixturePage ? 900 : 812,
+    ]);
+  }
 
   const failures = [];
   for (const [route, language, translation, robots, width, height] of checks) {
@@ -255,11 +302,11 @@ try {
     if (!result.schemaValid) failures.push(`${label}: invalid JSON-LD structured data`);
     if (result.schemaVisible) failures.push(`${label}: JSON-LD visible in page content`);
     if ((route === "/" || route === "/fr/") && (!result.profileButtons.some((label) => label.includes("📧")) || !result.profileButtons.some((label) => label.includes("📝")))) failures.push(`${label}: profile button icons missing`);
-    const protectedRoute = route.includes("my-links");
+    const protectedRoute = protectedRouteSet.has(route);
     if (protectedRoute && (!result.pageLocked || !result.gateVisible || result.protectedBodyVisible || !result.headerVisible)) failures.push(`${label}: encrypted page is not initially locked`);
     if (!protectedRoute && result.pageLocked) failures.push(`${label}: public page is unexpectedly locked`);
 
-    if (route === "/my-links/") {
+    if (route === protectedFixturePage.route) {
       await cdp("Runtime.evaluate", {
         expression: `(() => {
           document.querySelector('#protected-page-password').value = 'definitely-wrong-password';
