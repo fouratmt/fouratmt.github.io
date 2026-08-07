@@ -2,6 +2,10 @@
 
 Bilingual English/French portfolio for Fourat Mastouri, built with Hugo Extended and PaperMod. GitHub Actions validates and deploys the public website to GitHub Pages. Docker is used only for local development and production-like previews.
 
+## Project roadmap
+
+[`WEBSITE_AUDIT.md`](WEBSITE_AUDIT.md) is the single source of truth for completed work, remaining functional and technical gaps, priorities, blockers, and planned delivery order.
+
 ## Requirements
 
 - Git, including submodule support
