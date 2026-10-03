@@ -9,7 +9,7 @@ Bilingual English/French portfolio for Fourat Mastouri, built with Hugo Extended
 ## Requirements
 
 - Git, including submodule support
-- Hugo Extended 0.164.0 for native development
+- Hugo Extended 0.167.0 for native development
 - Python 3 for generated-site validation
 - Docker and Docker Compose when using the container workflow
 
@@ -101,6 +101,6 @@ Do not edit or regenerate the PDF files in this project. The current `/cv/` and 
 
 ## Deployment
 
-Pull requests run the quality workflow, including validation of the optional local Docker preview image. Pushes to `main` run the same site checks before the GitHub Pages artifact is uploaded and deployed. The workflow pins Hugo 0.164.0, matching `.hugo-version` and the Docker builder.
+Pull requests run the quality workflow, including validation of the optional local Docker preview image. Pushes to `main` run the same site checks before the GitHub Pages artifact is uploaded and deployed. The workflow pins Hugo 0.167.0, matching `.hugo-version` and the Docker builder.
 
 Production response-header configuration for the Cloudflare/GitHub Pages deployment is documented in [`docs/security-headers.md`](docs/security-headers.md).
