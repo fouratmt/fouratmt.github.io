@@ -6,7 +6,7 @@ WORKDIR /project
 COPY . .
 RUN hugo --gc --minify --panicOnWarning --environment production --destination /tmp/public
 
-FROM nginxinc/nginx-unprivileged:1.31.6-alpine
+FROM nginxinc/nginx-unprivileged:1.31.7-alpine
 
 USER root
 COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
